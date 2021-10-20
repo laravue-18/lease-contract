@@ -1,0 +1,41 @@
+<h2 class="mb-4 font-weight-bold">Pet Deposit or Fee</h2>
+
+<h4 class="mb-3">Do you want to charge a pet deposit or fee?</h4>
+
+<div class="mb-4">
+    <label class="cursor-pointer">
+        <input type="radio" :value="true" v-model="terms_pets_charge" hidden>
+        <div class="label-div text-center">
+            YES
+        </div>
+    </label>
+    <label class="cursor-pointer">
+        <input type="radio" :value="false" v-model="terms_pets_charge" hidden>
+        <div class="label-div text-center">
+            NO
+        </div>
+    </label>
+</div>
+
+<div class="mb-4">
+    <label class="cursor-pointer d-block">
+        <input type="radio" :value="false" v-model="terms_pets_charge_refundable" hidden>
+        <div class="label-div hasIcon">
+            <div class="icon"> <img src="img/non-refundable.png"> </div>
+            <div class="label"> Non-refundable pet fee </div>
+        </div>
+    </label>
+</div>
+
+<div class="mt-5">
+    <button class="btn btn-light" @click="step='property-location'">
+        BACK
+    </button>
+    <button class="btn bg-theme-green text-white" 
+        @click="step = ''"
+    >
+        SAVE AND CONTINUE
+    </button>
+</div>
+
+<input type="text" class="theme-control" v-model="">

@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Rental Lease Form</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="padding:0;">
+    <div id="app" :key="renderKey">
+        <div class="bg-theme-primary py-5">
+            <div class="container">
+                <h3 class="text-white">Free Rental/Lease Agreement</h3>
+                <ul class="nav justify-content-between my-4">
+                    <li class="nav-item text-theme-gray rounded px-3 py-1" 
+                        :class="{'bg-theme-active text-white': (['property-type', 'property-location', 'contract-type'].includes(step))}"
+                        @click="step='general-property-type'"
+                    >
+                      General
+                    </li>
+                    <li class="nav-item text-theme-gray rounded px-3 py-1" 
+                        :class="{'bg-theme-active text-white': (step=='term')}"
+                        @click="step='term-lease-term'"
+                    >
+                      Term
+                    </li>
+                    <li class="nav-item text-theme-gray rounded px-3 py-1" 
+                        :class="{'bg-theme-active text-white': (step=='property')}"
+                        @click="step='property-address'"
+                    >
+                      Property
+                    </li>
+                    <li class="nav-item text-theme-gray rounded px-3 py-1" 
+                        :class="{'bg-theme-active text-white': (step=='parties')}"
+                        @click="step='parties-landlord-info'"
+                    >
+                      Parties
+                    </li>
+                    <li class="nav-item text-theme-gray rounded px-3 py-1" 
+                        :class="{'bg-theme-active text-white': (step=='terms')}"
+                        @click="step='terms-parking'"
+                    >
+                      Terms
+                    </li>
+                    <li class="nav-item text-theme-gray rounded px-3 py-1" 
+                        :class="{'bg-theme-active text-white': (step=='details')}"
+                        @click="step='details-landlord-improvement'"
+                    >
+                      Final Details
+                    </li>
+                    <li class="nav-item text-theme-gray rounded px-3 py-1" 
+                        :class="{'bg-theme-active text-white': (step=='signing')}"
+                        @click="step='signing'"
+                    >
+                      Signing
+                    </li>
+                    <li class="nav-item text-theme-gray rounded px-3 py-1" 
+                        :class="{'bg-theme-active text-white': (step=='download')}"
+                        @click="step='download'"
+                    >
+                      Print/Download
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container py-4">
+            <div v-if = "step == 'general-property-type'">
+                <div class="shadow p-4">
+                    <h3 class="my-4">What type of property is being rented?</h3>
+                    <div class="row row-cols-lg-5 my-4">
+                        <div class="col">
+                            <label class="cursor-pointer">
+                                <input type="radio" value="house" v-model="property_type" hidden>
+                                <div class="radioButtonLarge">
+                                    <img src="img/icon-house.png" alt="House" title="House">
+                                    <div>House</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label class="cursor-pointer">
+                                <input type="radio" value="apartment" v-model="property_type" hidden>
+                                <div class="radioButtonLarge">
+                                    <img src="img/icon-apartment.png" alt="Apartment" title="Apartment">
+                                    <div>Apartment</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label class="cursor-pointer">
+                                <input type="radio" value="basement" v-model="property_type" hidden>
+                                <div class="radioButtonLarge">
+                                    <img src="img/icon-basement.png" alt="Basement" title="Basement">
+                                    <div>Basement</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label class="cursor-pointer">
+                                <input type="radio" value="condo" v-model="property_type" hidden>
+                                <div class="radioButtonLarge">
+                                    <img src="img/icon-condo.png" alt="Condo" title="Condo">
+                                    <div>Condo</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label class="cursor-pointer">
+                                <input type="radio" value="duplex" v-model="property_type" hidden>
+                                <div class="radioButtonLarge">
+                                    <img src="img/icon-duplex.png" alt="Duplex" title="Duplex">
+                                    <div>Duplex</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label class="cursor-pointer">
+                                <input type="radio" value="mobile-home" v-model="property_type" hidden>
+                                <div class="radioButtonLarge">
+                                    <img src="img/icon-mobile.png" alt="Mobile Home" title="Mobile Home">
+                                    <div>Mobile Home</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label class="cursor-pointer">
+                                <input type="radio" value="room" v-model="property_type" hidden>
+                                <div class="radioButtonLarge">
+                                    <img src="img/icon-room.png" alt="Room" title="Room">
+                                    <div>Room</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label class="cursor-pointer">
+                                <input type="radio" value="townhouse" v-model="property_type" hidden>
+                                <div class="radioButtonLarge">
+                                    <img src="img/icon-townHouse.png" alt="Townhouse" title="Townhouse">
+                                    <div>Townhouse</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <label class="cursor-pointer">
+                                <input type="radio" value="other" v-model="property_type" hidden>
+                                <div class="radioButtonLarge">
+                                    <img src="img/icon-other.png" alt="Other" title="Other">
+                                    <div>Other</div>
+                                </div>
+                            </label>
+                        </div>
+                        
+                    </div>
+                    <div>
+                        <button class="btn bg-theme-green text-white" @click="step='general-property-location'">
+                            SAVE AND CONTINUE
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div v-else-if = "step == 'general-property-location'">
+                <h3 class="my-4">Property Location</h3>
+                <h6>Where is the rental property located?</h6>
+                <h6 class="text-theme-green">State:</h6>
+                <select class="theme-control">
+                    <option value="california">California</option>
+                </select>
+                <div class="mt-4">
+                    <img class="stateTest" src="img/USCA.png" alt="California" title="California">
+                    <span class="mr-5">
+                        <strong>Built for California</strong>
+                        <br>Different states have different rules and regulations. 
+                        Your Rental/Lease Agreement will be  customized for California.
+                    </span>
+                </div>
+                <br>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='property-type'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" @click="step='general-contract-type'">
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'general-contract-type'">
+                <h3 class="my-4 font-weight-bold">Contract Type</h3>
+                <h6>What type of lease agreement do you want?</h6>
+                <div class="mt-4">
+                    <label class="cursor-pointer d-block my-4">
+                        <input type="radio" value="standard" v-model="contract_type" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon">
+                                <img src="img/standard-agreement.png" alt="Condo" title="Condo">
+                            </div>
+                            <div class="label">
+                                Standard agreement
+                                <br>
+                                (Most popular)
+                            </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block my-4">
+                        <input type="radio" value="comprehensive" v-model="contract_type" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon">
+                                <img src="img/comprehensive-agreement.png" alt="Condo" title="Condo">
+                            </div>
+                            <div class="label">
+                                Comprehensive agreement
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='property-location'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" @click="step='term-lease-term'">
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'term-lease-term'">
+                <h3 class="my-4">Lease Term</h3>
+                <h6>What type of lease term do you want?</h6>
+                <div class="mt-4">
+                    <label class="cursor-pointer d-block my-4">
+                        <input type="radio" value="fixed" v-model="term_type" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon">
+                                <img src="img/fixed-term.png" alt="Condo" title="Condo">
+                            </div>
+                            <div class="label">
+                                Fixed Term
+                            </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block my-4">
+                        <input type="radio" value="month-to-month" v-model="term_type" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon">
+                                <img src="img/term_monthly.png" alt="Condo" title="Condo">
+                            </div>
+                            <div class="label">
+                                Month-to-Month
+                            </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block my-4">
+                        <input type="radio" value="year-to-year" v-model="term_type" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon">
+                                <img src="img/term_yearly.png" alt="Condo" title="Condo">
+                            </div>
+                            <div class="label">
+                                Year-to-Year
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <h6>When will the lease start?</h6>
+                <h6 class="text-theme-green mt-4">Lease Start Date:</h6>
+                <input type="date" v-model="start_date" class="theme-control">
+                <template v-if="term_type=='fixed'">
+                    <h6 class="text-theme-green mt-4">Lease End Date:</h6>
+                    <input type="date" v-model="end_date" class="theme-control">
+                </template>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='contract-type'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white"           @click="step='property'">
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'term-early-possession'"></div>
+            <div v-else-if = "step == 'property-address'">
+                <h3 class="my-4 font-weight-bold">Property Address</h3>
+                <h6>Where in California is the rental property located?</h6>
+                <h6 class="text-theme-green mt-4">Street Address:</h6>
+                <input type="text" v-model="property_address" class="theme-control">
+            
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='term'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" @click="step='property-additional-detail'">
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'property-additional-detail'"></div>
+            <div v-else-if = "step == 'parties-landlord-info'">
+                <h3 class="my-4">Landlord Information</h3>
+                <h6>Who is the landlord?</h6>
+            
+                <template v-for="(i, idx) in landlords">
+                    <div class="shadow p-4 my-4">
+                        <div class="d-flex justify-content-between">
+                            <h5>
+                                <template v-if="landlords.length > 1">
+                                    {{ ['First', 'Second', 'Third', 'Fourth'][idx] }}
+                                </template>
+                                Landlord
+                            </h5>
+                            <p
+                                v-if="landlords.length - 1"
+                                class="cursor-pointer"
+                                @click="remove_landlord(idx)"
+                            >REMOVE</p>
+                        </div>
+                        <h5 class="text-theme-green">Type:</h5>
+                        <label class="cursor-pointer d-block my-4">
+                            <input type="radio" value="individual" v-model="landlords[idx].type" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon">
+                                    <img src="img/standard-agreement.png" alt="Condo" title="Condo">
+                                </div>
+                                <div class="label">
+                                    Individual
+                                </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer d-block my-4">
+                            <input type="radio" value="corporation" v-model="landlords[idx].type" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon">
+                                    <img src="img/standard-agreement.png" alt="Condo" title="Condo">
+                                </div>
+                                <div class="label">
+                                    Corporation/Organization
+                                </div>
+                            </div>
+                        </label>
+                        <h5 class="text-theme-green">Full Name:</h5>
+                        <input type="text" v-model="landlords[idx].name" class="theme-control">
+                    </div>
+                </template>
+            
+                <h5
+                    v-if="landlords.length < 4"
+                    class="mt-3 text-theme-green-2 cursor-pointer"
+                    @click="landlords.push({type: 'individual', name: ''})"
+                >
+                    + Add another landlord
+                </h5>
+            
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='property'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" @click="step='terms'">
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'parties-landlord-contact'"></div>
+            <div v-else-if = "step == 'parties-tenant-info'"></div>
+            <div v-else-if = "step == 'parties-tenant-contact'"></div>
+            <div v-else-if = "step == 'parties-guarantor-info'"></div>
+            <div v-else-if = "step == 'terms-parking'">
+                <h2 class="mb-4 font-weight-bold">Parking</h2>
+                
+                <h4 class="mb-3">Will the tenant have access to parking?</h4>
+                <div>
+                    <label class="cursor-pointer my-4">
+                        <input type="radio" :value="true" v-model="terms_parking" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer my-4">
+                        <input type="radio" :value="false" v-model="terms_parking" hidden>
+                        <div class="label-div text-center">
+                            No
+                        </div>
+                    </label>
+                </div>
+            
+                <template v-if="terms_parking">
+                    <h4 class="mb-3">Will the tenant have exclusive access to any parking?</h4>
+                    <div>
+                        <label class="cursor-pointer my-4">
+                            <input type="radio" :value="true" v-model="terms_parking_exclusive" hidden>
+                            <div class="label-div">
+                                YES
+                            </div>
+                        </label>
+                        <label class="cursor-pointer my-4">
+                            <input type="radio" :value="false" v-model="terms_parking_exclusive" hidden>
+                            <div class="label-div">
+                                No
+                            </div>
+                        </label>
+                    </div>
+                </template>
+            
+                <template v-if="terms_parking_exclusive">
+                    <h4 class="text-theme-green">Exclusive Parking Description:</h4>
+                    <input type="text" v-model="terms_parking_exclusive_desc" class="theme-control">
+                </template>
+            
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='parties'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" @click="step='details'">
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'terms-furnishings'">
+                <h2 class="mb-4 font-weight-bold">Furnishings</h2>
+
+                <h4 class="mb-3">Is the property furnished?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="terms_furnished" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="terms_furnished" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+
+                <template v-if = "terms_furnished">
+                    <h4 class="mb-3">List the furnishings that will be provided: </h4>
+                    <input type="text" class="theme-control" v-model="terms_furnishings">
+                </template>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-parking'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-use-of-property'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'terms-use-of-property'">
+                <h2 class="mb-4 font-weight-bold">Use of Property</h2>
+
+                <h4 class="mb-3">Is smoking allowed indoors?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="terms_smoking" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="terms_smoking" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+
+                <h4 class="mb-3">Is vaping allowed indoors?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="terms_vaping" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="terms_vaping" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+
+                <h4 class="mb-3">Are home businesses allowed?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="terms_home_business" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="terms_home_business" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+
+                <template v-if = "terms_home_business">
+                    <h4 class="mb-3">Describe Home Business: </h4>
+                    <input type="text" class="theme-control" v-model="terms_home_business_desc">
+                </template>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-furnishings'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-purchase'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'terms-purchase'"></div>
+            <div v-else-if = "step == 'terms-rent'"></div>
+            <div v-else-if = "step == 'terms-forms-of-payment'"></div>
+            <div v-else-if = "step == 'terms-rent-increase'"></div>
+            <div v-else-if = "step == 'terms-security-deposit'"></div>
+            <div v-else-if = "step == 'terms-pets'">
+                <h3 class="my-4 font-weight-bold">Pets</h3>
+                <h6> Are pets allowed on the property? </h6>
+                <div class="mt-4">
+                    <label class="cursor-pointer d-block my-4">
+                        <input type="radio" value="yes" v-model="terms_pets" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/yes.png"> </div>
+                            <div class="label"> Yes </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block my-4">
+                        <input type="radio" value="if" v-model="terms_pets" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/if.png"> </div>
+                            <div class="label"> Only if the landlord gives written approval </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block my-4">
+                        <input type="radio" value="no" v-model="terms_pets" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/no.png"> </div>
+                            <div class="label"> No </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='property-location'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = terms_pets == 'no' 
+                            ? 'terms-utilities-details' 
+                            : 'terms-pet-deposit-or-fee'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'terms-pet-deposit-or-fee'">
+                <h2 class="mb-4 font-weight-bold">Pet Deposit or Fee</h2>
+
+                <h4 class="mb-3">Do you want to charge a pet deposit or fee?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="terms_pets_charge" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="terms_pets_charge" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+
+                <template v-if = "terms_pets_charge">
+                    <h4 class="mb-3"> Type of pet charge: </h4>
+                    <div class="mb-4">
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" :value="false" v-model="terms_pets_charge_refundable" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/non-refundable.png"> </div>
+                                <div class="label"> Non-refundable pet fee </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" :value="true" v-model="terms_pets_charge_refundable" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/refundable.png"> </div>
+                                <div class="label"> Refundable pet deposit </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <h4 class="mb-3">Amount:</h4>
+                    <div class="mb-4">
+                        <input type="text" v-model="terms_pets_charge_amount" class="theme-control">
+                    </div>
+                </template>
+
+                <template v-if = "terms_pets_charge_refundable">
+                    <h4 class="mb-3"> How many days will the landlord have to return the pet deposit? </h4>
+                    <div class="mb-4">
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" :value="false" v-model="terms_pets_charge_refundable_days_specific" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/legal.png"> </div>
+                                <div class="label"> Use legal maximum </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" :value="true" v-model="terms_pets_charge_refundable_days_specific" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/period.png"> </div>
+                                <div class="label"> Specific time period </div>
+                            </div>
+                        </label>
+                    </div>
+                </template>
+
+                <template v-if = "terms_pets_charge_refundable_days_specific">
+                    <h4 class="mb-3">Number of days to return pet deposit:</h4>
+                    <input type="text" v-model="terms_pets_charge_refundable_days" class="theme-control">
+                </template>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-pets'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-utilities-details'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'terms-utilities-details'"></div>
+            <div v-else-if = "step == 'terms-maintenance'"></div>
+            <div v-else-if = "step == 'terms-insurance'"></div>
+            <div v-else-if = "step == 'terms-late-payments'"></div>
+            <div v-else-if = "step == 'terms-notices'"></div>
+            <div v-else-if = "step == 'details-landlord-improvement'">
+                <h3 class="my-4">Landlord Improvements and Signing Incentives</h3>
+                <h6>Will the landlord be required to make any improvements to the property?</h6>
+            
+                <label class="cursor-pointer my-4">
+                    <input type="radio" :value="true" v-model="is_landlord_improvement" hidden>
+                    <div class="label-div">
+                        YES
+                    </div>
+                </label>
+                <label class="cursor-pointer my-4">
+                    <input type="radio" :value="false" v-model="is_landlord_improvement" hidden>
+                    <div class="label-div">
+                        No
+                    </div>
+                </label>
+            
+                <template v-if="is_landlord_improvement">
+                    <h5 class="text-theme-green">Describe the required landlord improvements:</h5>
+                    <input type="text" v-model="landlord_improvement_description" class="theme-control">
+                </template>
+            
+                <h6 class="mt-4">Will the tenant receive any signing incentives?</h6>
+            
+                <label class="cursor-pointer my-4">
+                    <input type="radio" :value="true" v-model="is_signing_incentives" hidden>
+                    <div class="label-div">
+                        YES
+                    </div>
+                </label>
+                <label class="cursor-pointer my-4">
+                    <input type="radio" :value="false" v-model="is_signing_incentives" hidden>
+                    <div class="label-div">
+                        No
+                    </div>
+                </label>
+            
+                <template v-if="is_signing_incentives">
+                    <h5 class="text-theme-green">Description of signing incentives:</h5>
+                    <input type="text" v-model="signing_incentives_description" class="theme-control">
+                </template>
+            
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" @click="step='signing'">
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'details-tenant-improvement'"></div>
+            <div v-else-if = "step == 'details-contact-address'"></div>
+            <div v-else-if = "step == 'details-environmental-Disclosures'"></div>
+            <div v-else-if = "step == 'details-disputue-resolution'"></div>
+            <div v-else-if = "step == 'details-assignment'"></div>
+            <div v-else-if = "step == 'details-inspection-report'"></div>
+            <div v-else-if = "step == 'details-additional-clauses'"></div>
+            <div v-else-if = "step == 'signing'">
+                <h3 class="my-4">Signing Details</h3>
+                <h6>When will the Lease be signed?</h6>
+                <div class="mt-4">
+                    <label class="cursor-pointer d-block my-4">
+                        <input type="radio" :value="false" v-model="signing_is_when" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon">
+                                <img src="img/unsure.png" alt="Condo" title="Condo">
+                            </div>
+                            <div class="label">
+                                Unsure
+                            </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block my-4">
+                        <input type="radio" :value="true" v-model="signing_is_when" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon">
+                                <img src="img/specify_date.png" alt="Condo" title="Condo">
+                            </div>
+                            <div class="label">
+                                Specify date
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <template v-if="signing_is_when">
+                    <input type="date" v-model="sign_date" class="theme-control">
+                </template>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='details'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" @click="step='download'">
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'download'">
+                <div id="contract" class="DCS">
+                    <div id="outputPage" class="p-5">
+                        <div data-exp="simple2" class="outputVersion2">
+                            <div style="background:url('//www.lawdepot.com/common/images/draft_text.png') repeat-y center top/contain #fff;">
+                                <div class=" outputDocument residentialLease outputDocument">
+                                    <div class=" header">
+                                        <span style="line-height:18.0pt;" class="content">Rental/Lease Agreement</span>
+                                        <span style="line-height:18.0pt;" class="pageNumbers">Page <span class="currentPageNum"></span> of <span class="totalPageNum"></span></span>
+                                    </div>
+                                    <div class=" footer"></div>
+                                    <div class=" firstHeader"></div>
+                                    <div class=" firstFooter">
+                                        <span style="line-height:18.0pt;" class="pageNumbers">Page <span class="currentPageNum"></span> of <span class="totalPageNum"></span></span>
+                                    </div>
+                                    <p class="text-center m-1 font-weight-bold">
+                                        RESIDENTIAL LEASE AGREEMENT
+                                    </p>
+                                    <p v-if="signing_is_when">
+                                        THIS LEASE (the "Lease") dated this {{ signing_date }}
+                                    </p>
+                                    <p> BETWEEN: </p>
+                                    <p class="text-center">
+                                        <span class="font-weight-bold">
+                                            {{ landlords[0]['name'] ? landlords[0]['name'] : '_________________________' }}
+                                        </span>
+                                    </p>
+                                    <p class="text-center">(the "Landlord")</p>
+                                    <p class="text-center">- AND-</p>
+                                    <p class="text-center">
+                                        <span class="font-weight-bold">
+                                            _________________________
+                                        </span>
+                                    </p>
+                                    <p class="text-center">(the "Tenant")</p>
+                                    <p class="text-center">(individually the “Party” and collectively the “Parties”) </p>
+                                    <p class="mt-4">
+                                        IN CONSIDERATION OF the Landlord leasing certain premises to the Tenant and other valuable consideration, the receipt and sufficiency of which consideration is hereby acknowledged, the Parties agree as follows:
+                                    </p>
+                                    <ol start="1" style="line-height:17.0pt;font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;margin-top:10.0pt;list-style:decimal inside;" id="itemsA">
+
+                                        <h4>Leased Property</h4>
+                                        <li>
+                                            <div>
+                                                The Landlord agrees to rent to the Tenant the {{ _val(property_type) }}, municipally described as {{ _val(property_address) }} (the "Property"), for use as residential premises only.
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                Subject to the provisions of this Lease, apart from the Tenant, no other persons will live in the Property without the prior written permission of the Landlord.
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                No guests of the Tenants may occupy the Property for longer than one week without the prior written consent of the Landlord.
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <template v-if="terms_pets == 'yes'">
+                                                    The Tenant may keep pets on the Property. If, at the sole discretion of the Landlord, this privilege is abused, or if the pets damage the Property, or if the pets cause problems or interfere with the use and enjoyment of the Property for the other tenants, the Landlord may revoke this privilege upon thirty (30) days' notice.
+                                                </template>
+                                                <template v-if="terms_pets == 'if'">
+                                                    No pets or animals are allowed to be kept in or about the Property without the prior written permission of the Landlord. Upon thirty (30) days' notice, the Landlord may revoke any consent previously given pursuant to this clause.
+                                                </template>
+                                                <template v-if="terms_pets == 'no'">
+                                                    No animals are allowed to be kept in or about the Property.
+                                                </template>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <template v-if = "terms_parking">
+                                                    <template v-if = "terms_parking_exclusive">
+                                                        Subject to the provisions of this Lease, the Tenant is entitled to the exclusive use of the following parking on or about the Property: {{ _val(terms_parking_exclusive_desc) }}
+                                                    </template>
+                                                    <template v-else>
+                                                        Subject to the provisions of this Lease, the Tenant is entitled to the use of parking on or about the Property.
+                                                    </template>
+                                                </template>
+                                                <template v-else>
+                                                    Parking space is not provided under the terms of this Lease and no vehicle may park on or about the Property.
+                                                </template>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <template v-if = 'terms_smoking'>
+                                                    Smoking is permitted on the Property. The Tenant will be responsible for all damage caused by smoking including, but not limited to, stains, burns, odors and removal of debris.
+                                                </template>
+                                                <template v-else>
+                                                    The Tenant and members of the Tenant's household will not smoke anywhere in the Property nor permit any guests or visitors to smoke in the Property.
+                                                </template>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                The Tenant and members of the Tenant's household will not vape anywhere in the Property nor permit any guests or visitors to vape in the Property.
+                                            </div>
+                                        </li>
+
+                                        <h4>Term</h4>
+                                        <li>
+                                            <div>
+                                                The term of the Lease commences at 12:00 noon on October 19, 2021 and ends at 12:00 noon on October 19, 2021.
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                Any notice to terminate this tenancy must comply with the applicable legislation of the State of California (the "Act").
+                                            </div>
+                                        </li>
+                                        
+                                        <h4>Rent</h4>
+                                        <li>
+                                            <div>
+                                                Subject to the provisions of this Lease, the rent for the Property is $___________ per month (the "Rent").
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                The Tenant will pay the Rent on or before the first (1st) day of each and every month of the term of this Lease to the Landlord at __________ or at such other place as the Landlord may later designate by cash or check.
+                                            </div>
+                                        </li>
+                                        
+                                        <template v-if = "terms_pets !== 'no'">
+                                            <template v-if = "terms_pets_charge">
+                                                <template v-if = "terms_pets_charge_refundable">
+                                                    <h4>Pet Deposit</h4>
+                                                    <li>
+                                                        <div>
+                                                            On execution of this Lease, the Tenant will pay the Landlord a pet deposit of ${{_val(terms_pets_charge_amount)}} (the "Pet Deposit").
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            The Landlord will return the Pet Deposit at the end of this tenancy, less such deductions as provided in this Lease but no deduction will be made for damage due to reasonable wear and tear nor for any deduction prohibited by the Act, if any.
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            During the term of this Lease or after its termination, the Landlord may charge the Tenant or make deductions from the Pet Deposit for any or all of the following:
+                                                            <ol class="itemsB" type="a">
+                                                                <li>
+                                                                    <div>
+                                                                        damage or losses suffered to the Property or surrounding property caused by any pets owned by the Tenant or allowed on the Property by the Tenant; and
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div>
+                                                                        damage or losses suffered to the Property or surrounding property due to flea infestation caused by any pets owned by the Tenant or allowed on the Property by the Tenant, including, but not limited to, the cost to professionally clean the Property with de-infestation cleaner at the end of the Tenancy.
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div>
+                                                                        any other purpose allowed under this Lease or the Act.
+                                                                    </div>
+                                                                </li>
+                                                            </ol>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            The Tenant may not use the Pet Deposit as payment for the Rent.
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <template v-if = "terms_pets_charge_refundable_days_specific">
+                                                                Within the lesser of {{ _val(terms_pets_charge_refundable_days) }} and any time period required by the Act after the termination of this tenancy,
+                                                            </template>
+                                                            <template v-else>
+                                                                Within the time period required by the Act after the termination of this tenancy,
+                                                            </template>
+                                                             the Landlord will deliver or mail the Pet Deposit less any proper deductions or with further demand for payment to: ________________________________________________________, or at such other place as the Tenant may advise.
+                                                        </div>
+                                                    </li>
+                                                </template>
+                                                <template v-else>
+                                                    <h4>Pet Fee</h4>
+                                                    <li>
+                                                        <div>
+                                                            On execution of this Lease, the Tenant will pay the Landlord a non-refundable pet fee of ${{_val(terms_pets_charge_amount)}}(the "Pet Fee").
+                                                        </div>
+                                                    </li>
+                                                </template>
+                                            </template>
+                                        </template>
+                                        
+
+                                        <h4>Inspections</h4>
+                                        <li>
+                                            <div>
+                                                The Parties will complete, sign and date an inspection report at the beginning and at the end of this tenancy.
+                                            </div>
+                                        </li>
+
+                                        <h4>Tenant Improvements</h4>
+                                        <li>
+                                            <div>
+                                                The Tenant will obtain written permission from the Landlord before doing any of the following: 
+                                                <ol start="1" style="margin-left:9.0pt;margin-top:1.0pt;list-style:lower-alpha inside;">
+                                                    <li style="margin-bottom:6.0pt;" value="1">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            applying adhesive materials, or inserting nails or hooks in walls or ceilings other than two small picture hooks per wall;
+                                                        </div>
+                                                    </li>
+                                                    <li style="margin-bottom:6.0pt;" value="2">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            painting, wallpapering, redecorating or in any way significantly altering the appearance of the Property;
+                                                        </div>
+                                                    </li>
+                                                    <li style="margin-bottom:6.0pt;" value="3">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            removing or adding walls, or performing any structural alterations;
+                                                        </div>
+                                                    </li>
+                                                    <li style="margin-bottom:6.0pt;" value="4">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            installing a waterbed(s);
+                                                        </div>
+                                                    </li>
+                                                    <li style="margin-bottom:6.0pt;" value="5">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            changing the amount of heat or power normally used on the Property as well as installing additional electrical wiring or heating units;
+                                                        </div>
+                                                    </li>
+                                                    <li style="margin-bottom:6.0pt;" value="6">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            placing or exposing or allowing to be placed or exposed anywhere inside or outside the Property any placard, notice or sign for advertising or any other purpose; or
+                                                        </div>
+                                                    </li>
+                                                    <li style="margin-bottom:0.0pt;" value="7">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            affixing to or erecting upon or near the Property any radio or TV antenna or tower.
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </li>
+                                        <!-- Utilities and Other Charges -->
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;"> Utilities and Other Charges </span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="14">
+                                            <div>
+                                                The Tenant is responsible for the payment of all utilities in relation to the Property.
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Insurance</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="15">
+                                            <div>
+                                                The Tenant is hereby advised and understands that the personal property of the Tenant is not insured by the Landlord for either damage or loss, and the Landlord assumes no liability for any such loss.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="16">
+                                            <div>
+                                                The Tenant is not responsible for insuring the Landlord's contents and furnishings in or about the Property for either damage or loss, and the Tenant assumes no liability for any such loss.
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Attorney Fees</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="17">
+                                            <div>
+                                                In the event that any action is filed in relation to this Lease, the unsuccessful Party in the action will pay to the successful Party, in addition to all the sums that either Party may be called on to pay, a reasonable sum for the successful Party's attorney fees.
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Governing Law</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="18">
+                                            <div>
+                                                This Lease will be construed in accordance with and exclusively governed by the laws of the State of California.
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Severability</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="19">
+                                            <div>
+                                                If there is a conflict between any provision of this Lease and the Act, the Act will prevail and such provisions of the Lease will be amended or deleted as necessary in order to comply with the Act. Further, any provisions that are required by the Act are incorporated into this Lease.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="20">
+                                            <div>
+                                                The invalidity or unenforceability of any provisions of this Lease will not affect the validity or enforceability of any other provision of this Lease. &nbsp;Such other provisions remain in full force and effect.
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Amendment of Lease</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="21">
+                                            <div>
+                                                This Lease may only be amended or modified by a written document executed by the Parties.
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Assignment and Subletting</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="22">
+                                            <div>
+                                                Without the prior, express, and written consent of the Landlord, the Tenant will not assign this Lease, or sublet or grant any concession or license to use the Property or any part of the Property. A consent by the Landlord to one assignment, subletting, concession, or license will not be deemed to be a consent to any subsequent assignment, subletting, concession, or license. Any assignment, subletting, concession, or license without the prior written consent of the Landlord, or an assignment or subletting by operation of law, will be void and will, at the Landlord's option, terminate this Lease. 
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Damage to Property</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="23">
+                                            <div>
+                                                If the Property should be damaged other than by the Tenant's negligence or willful act or that of the Tenant's employee, family, agent, or visitor and the Landlord decides not to rebuild or repair the Property, the Landlord may end this Lease by giving appropriate notice.
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Care and Use of Property</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="24">
+                                            <div>
+                                                The Tenant will promptly notify the Landlord of any damage, or of any situation that may significantly interfere with the normal use of the Property or to any furnishings supplied by the Landlord.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="25">
+                                            <div>
+                                                The Tenant will not engage in any illegal trade or activity on or about the Property.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="26">
+                                            <div>
+                                                The Parties will comply with standards of health, sanitation, fire, housing and safety as required by law.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="27">
+                                            <div>
+                                                The Parties will use reasonable efforts to maintain the Property in such a condition as to prevent the accumulation of moisture and the growth of mold. The Tenant will promptly notify the Landlord in writing of any moisture accumulation that occurs or of any visible evidence of mold discovered by the Tenant. The Landlord will promptly respond to any such written notices from the Tenant.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="28">
+                                            <div>
+                                                If the Tenant is absent from the Property and the Property is unoccupied for a period of 4 consecutive days or longer, the Tenant will arrange for regular inspection by a competent person. The Landlord will be notified in advance as to the name, address and phone number of the person doing the inspections.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="29">
+                                            <div>
+                                                At the expiration of the term of this Lease, the Tenant will quit and surrender the Property in as good a state and condition as they were at the commencement of this Lease, reasonable use and wear and tear excepted.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="30">
+                                            <div>
+                                                If the Tenant suspects that there are bed bugs on the Property, the Tenant will immediately inform the Landlord.
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Rules and Regulations</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="31">
+                                            <div>
+                                                The Tenant will obey all rules and regulations of the Landlord regarding the Property.
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Megan's Law</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="32">
+                                            <div>
+                                                NOTICE: Pursuant to Section 290.46 of the Penal Code, information about specified registered sex offenders is made available to the public via an Internet website maintained by the Department of Justice at www.meganslaw.ca.gov. Depending on the offender’s criminal history, this information will include either the address at which the offender resides or the community of residence and ZIP Code in which he or she resides.
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Address for Notice</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="33">
+                                            <div>
+                                                For any matter relating to this tenancy, the Tenant may be contacted at the Property or through the phone number below:
+                                                <ol start="1" style="margin-left:9.0pt;margin-top:1.0pt;list-style:lower-alpha inside;">
+                                                    <li style="margin-bottom:6.0pt;" value="1">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            Name: _________________________
+                                                        </div>
+                                                    </li>
+                                                    <li style="margin-bottom:0.0pt;" value="2">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            Phone: &nbsp;_________________________
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="34">
+                                            <div>
+                                                For any matter relating to this tenancy, whether during or after this tenancy has been terminated, the Landlord's address for notice is:
+                                                <ol start="1" style="margin-left:9.0pt;margin-top:1.0pt;list-style:lower-alpha inside;">
+                                                    <li style="margin-bottom:6.0pt;" value="1">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            Name: _________________________
+                                                        </div>
+                                                    </li>
+                                                    <li style="margin-bottom:6.0pt;" value="2">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            Address: __________
+                                                            <p style="text-align:Left;">
+                                                                The contact information for the Landlord is:
+                                                            </p>
+                                                        </div>
+                                                    </li>
+                                                    <li style="margin-bottom:0.0pt;" value="3">
+                                                        <div style="margin-top:-17.0pt;padding-left:20.0pt;">
+                                                            Phone: &nbsp;_________________________
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </li>
+                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
+                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">General Provisions</span>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="35">
+                                            <div>
+                                                All monetary amounts stated or referred to in this Lease are based in the United States dollar.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="36">
+                                            <div>
+                                                Any waiver by the Landlord of any failure by the Tenant to perform or observe the provisions of this Lease will not operate as a waiver of the Landlord's rights under this Lease in respect of any subsequent defaults, breaches or non-performance and will not defeat or affect in any way the Landlord's rights in respect of any subsequent default or breach.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="37">
+                                            <div>
+                                                This Lease will extend to and be binding upon and inure to the benefit of the respective heirs, executors, administrators, successors and assigns, as the case may be, of each Party. All covenants are to be construed as conditions of this Lease.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="38">
+                                            <div>
+                                                All sums payable by the Tenant to the Landlord pursuant to any provision of this Lease will be deemed to be additional rent and will be recovered by the Landlord as rental arrears.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="39">
+                                            <div>
+                                                Where there is more than one Tenant executing this Lease, all Tenants are jointly and severally liable for each other's acts, omissions and liabilities pursuant to this Lease.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="40">
+                                            <div>
+                                                Locks may not be added or changed without the prior written agreement of both Parties, or unless the changes are made in compliance with the Act.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="41">
+                                            <div>
+                                                The Tenant will be charged an additional amount of $__________ for each N.S.F. check or checks returned by the Tenant's financial institution.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="42">
+                                            <div>
+                                                Headings are inserted for the convenience of the Parties only and are not to be considered when interpreting this Lease. Words in the singular mean and include the plural and vice versa. Words in the masculine mean and include the feminine and vice versa.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="43">
+                                            <div>
+                                                >This Lease may be executed in counterparts. Facsimile signatures are binding and are considered to be original signatures.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="44">
+                                            <div>
+                                                This Lease constitutes the entire agreement between the Parties.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:6.0pt;" value="45">
+                                            <div>
+                                                During the last 30 days of this Lease, the Landlord or the Landlord's agents will have the privilege of displaying the usual 'For Sale' or 'For Rent' or 'Vacancy' signs on the Property.
+                                            </div>
+                                        </li>
+                                        <li style="margin-bottom:0.0pt;" value="46">
+                                            <div>
+                                                Time is of the essence in this Lease.
+                                            </div>
+                                        </li>
+                                    </ol>
+                                    <div class=" keepTogether">
+                                        <p style="margin-top:35.0pt;">
+                                            IN WITNESS WHEREOF _________________________ and _________________________ have duly affixed their signatures on this ________ day of ________________, ________.
+                                        </p>
+                                        <div>
+                                            <table style="line-height:17.0pt;margin-left:auto;margin-right:auto;margin-top:23.0pt;width:100%;border-collapse:separate;border-spacing:0pt;">
+                                                <colgroup>
+                                                    <col style="width:50%;">
+                                                    <col style="width:50%;">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="text-align:Right;vertical-align:Bottom;padding:16.0pt;width:50%;">&nbsp;
+                                                        </td>
+                                                        <td style="text-align:Left;vertical-align:Bottom;padding:16.0pt;width:50%;">
+                                                            <p style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;text-align:Left;">_______________________________<br>______________________(Landlord)<br>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:Right;vertical-align:Bottom;padding:16.0pt;width:50%;">&nbsp;
+                                                        </td>
+                                                        <td style="text-align:Left;vertical-align:Bottom;padding:16.0pt;width:50%;">
+                                                            <p style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;text-align:Left;">_______________________________<br>______________________(Tenant)<br>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class=" keepTogether">
+                                        <p style="margin-top:35.0pt;">
+                                            The Tenant acknowledges receiving a duplicate copy of this Lease signed by the Tenant and the Landlord on the _____ day of ______________________, 20____.
+                                        </p>
+                                        <div>
+                                            <table style="line-height:17.0pt;margin-left:auto;margin-right:auto;margin-top:23.0pt;width:100%;border-collapse:separate;border-spacing:0pt;">
+                                                <colgroup>
+                                                    <col style="width:50%;">
+                                                    <col style="width:50%;">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="text-align:Right;vertical-align:Bottom;padding:16.0pt;width:50%;">
+                                                            &nbsp;
+                                                        </td>
+                                                        <td style="text-align:Left;vertical-align:Bottom;padding:16.0pt;width:50%;">
+                                                            <p style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;text-align:Left;">
+                                                                _______________________________
+                                                                <br>
+                                                                ______________________(Tenant)
+                                                                <br>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <br class="pageBreak">
+                                        <p style="line-height:34.1pt;font-size:24.0pt;line-height:36.0pt;font-family:Times New Roman;color:#000000;text-align:Center;margin-top:-10.1pt;" class="documentTitle">
+                                            Notice of Tenant Protection Act of 2019 Addendum
+                                            <br>
+                                        </p>
+                                        <p> Properties Subject to Civil Code Section 1946.2 and 1947.12 </p>
+                                        <p>
+                                            Property: __________<br>
+                                            Landlord: _________________________<br>
+                                            Tenant: _________________________
+                                        </p>
+                                        <p>
+                                            As required by Civil Code Section 1946.2 and 1947.12:
+                                            <br><br>
+                                            This Property is subject to the rent caps and just cause rules under the Tenant Protection Act of 2019 (AB-1482). The following disclosure is required by law.
+                                        </p>
+                                        <p>
+                                            California law limits the amount your rent can be increased. See Section 1947.12 of the Civil Code for more information. California law also provides that after all of the tenants have continuously and lawfully occupied the property for 12 months or more or at least one of the tenants has continuously and lawfully occupied the property for 24 months or more, a landlord must provide a statement of cause in any notice to terminate a tenancy. See Section 1946.2 of the Civil Code for more information.
+                                        </p>
+                                        <table style="line-height:17.0pt;margin-right:auto;margin-top:3.0pt;width:100%;border-collapse:separate;border-spacing:0pt;">
+                                            <colgroup>
+                                                <col style="width:48.97959%;">
+                                                <col style="width:2.040817%;">
+                                                <col style="width:48.97959%;">
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="text-align:Left;vertical-align:Middle;padding:2.0pt;width:48.97959%;">
+                                                        <span style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;">
+                                                            Date: ________ day of ________________, ________<br><br>
+                                                        </span>
+                                                    </td>
+                                                    <td style="text-align:Left;vertical-align:Middle;padding:2.0pt;width:2.040816%;">&nbsp;
+                                                    </td>
+                                                    <td style="text-align:Left;vertical-align:Middle;padding:2.0pt;width:48.97959%;">
+                                                        <span style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;">
+                                                            _________________________________
+                                                            <br>Landlord: _________________________
+                                                            <br><br>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p style="margin-top:-4.8pt;">
+                                            The Tenant ACKNOWLEDGES receipt of the information contained in the above addendum.
+                                        </p>
+                                        <table style="line-height:17.0pt;margin-right:auto;margin-top:3.0pt;width:100%;border-collapse:separate;border-spacing:0pt;">
+                                            <colgroup>
+                                                <col style="width:48.97959%;">
+                                                <col style="width:2.040817%;">
+                                                <col style="width:48.97959%;">
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="text-align:Left;vertical-align:Middle;padding:2.0pt;width:48.97959%;">
+                                                        <span style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;">
+                                                            Date: ________ day of ________________, ________<br><br>
+                                                        </span>
+                                                    </td>
+                                                    <td style="text-align:Left;vertical-align:Middle;padding:2.0pt;width:2.040816%;">&nbsp;</td>
+                                                    <td style="text-align:Left;vertical-align:Middle;padding:2.0pt;width:48.97959%;">
+                                                        <span style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;">
+                                                            _________________________________
+                                                            <br>Tenant: _________________________
+                                                            <br><br>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data(){
+                return {
+                    step: 'terms-use-of-property',
+                    property_type: 'house',
+                    property_location: 'california',
+                    contract_type: 'standard',
+                    term_type: 'fixed',
+                    start_date: new Date().toISOString().substr(0, 10),
+                    end_date: new Date().toISOString().substr(0, 10),
+                    property_address: '',
+                    landlords: [{type: 'individual', name: ''}],
+                    exclusive_parking_description: '',
+                    is_landlord_improvement: false,
+                    landlord_improvement_description: '',
+                    is_signing_incentives: false,
+                    signing_incentives_description: '',
+
+                    terms_parking: false,
+                    terms_parking_exclusive: false,
+                    terms_parking_exclusive_desc: '',
+
+                    terms_furnished: false,
+                    terms_furnishings: '',
+
+                    terms_smoking: false, 
+                    terms_vaping: false,
+                    terms_home_business: false,
+                    terms_home_business_desc: '',
+
+                    terms_pets: 'yes',
+                    terms_pets_charge: false,
+                    terms_pets_charge_refundable: false,
+                    terms_pets_charge_amount: null,
+                    terms_pets_charge_refundable_days_specific: false,
+                    terms_pets_charge_refundable_days: null,
+
+                    signing_is_when: false,
+                    signing_date: new Date().toISOString().substr(0, 10),
+
+                    renderKey: 0
+                }
+            },
+
+            methods: {
+                remove_landlord(idx){
+                    this.landlords.splice(idx, 1)
+                    this.renderKey++
+                }
+            }
+        });
+    
+        function _val( val ){
+            return val ? val : '_____________'
+        }
+    </script>
+</body>
+</html>
