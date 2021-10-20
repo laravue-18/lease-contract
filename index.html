@@ -186,11 +186,12 @@
                 </div>
             </div>
             <div v-else-if = "step == 'general-contract-type'">
-                <h3 class="my-4 font-weight-bold">Contract Type</h3>
-                <h6>What type of lease agreement do you want?</h6>
+                <h2 class="my-4 font-weight-bold">Contract Type</h2>
+
+                <h4 class="mb-3">What type of lease agreement do you want?</h4>
                 <div class="mt-4">
                     <label class="cursor-pointer d-block my-4">
-                        <input type="radio" value="standard" v-model="contract_type" hidden>
+                        <input type="radio" :value="false" v-model="contract_type_comprehensive" hidden>
                         <div class="label-div hasIcon">
                             <div class="icon">
                                 <img src="img/standard-agreement.png" alt="Condo" title="Condo">
@@ -203,7 +204,7 @@
                         </div>
                     </label>
                     <label class="cursor-pointer d-block my-4">
-                        <input type="radio" value="comprehensive" v-model="contract_type" hidden>
+                        <input type="radio" :value="true" v-model="contract_type_comprehensive" hidden>
                         <div class="label-div hasIcon">
                             <div class="icon">
                                 <img src="img/comprehensive-agreement.png" alt="Condo" title="Condo">
@@ -215,7 +216,7 @@
                     </label>
                 </div>
                 <div class="mt-5">
-                    <button class="btn btn-light" @click="step='property-location'">
+                    <button class="btn btn-light" @click="step='general-property-location'">
                         BACK
                     </button>
                     <button class="btn bg-theme-green text-white" @click="step='term-lease-term'">
@@ -224,9 +225,10 @@
                 </div>
             </div>
             <div v-else-if = "step == 'term-lease-term'">
-                <h3 class="my-4">Lease Term</h3>
-                <h6>What type of lease term do you want?</h6>
-                <div class="mt-4">
+                <h2 class="my-4 font-weight-bold">Lease Term</h2>
+
+                <h4 class="mb-3">What type of lease term do you want?</h4 class="mb-3">
+                <div class="mb-4">
                     <label class="cursor-pointer d-block my-4">
                         <input type="radio" value="fixed" v-model="term_type" hidden>
                         <div class="label-div hasIcon">
@@ -261,23 +263,62 @@
                         </div>
                     </label>
                 </div>
-                <h6>When will the lease start?</h6>
-                <h6 class="text-theme-green mt-4">Lease Start Date:</h6>
-                <input type="date" v-model="start_date" class="theme-control">
+
+                <h4>When will the lease start?</h4>
+                <h5 class="text-theme-green mt-4">Lease Start Date:</h5>
+                <input type="date" v-model="term_start_at" class="theme-control">
                 <template v-if="term_type=='fixed'">
-                    <h6 class="text-theme-green mt-4">Lease End Date:</h6>
-                    <input type="date" v-model="end_date" class="theme-control">
+                    <h5 class="text-theme-green mt-4">Lease End Date:</h5>
+                    <input type="date" v-model="term_end_at" class="theme-control">
                 </template>
+
                 <div class="mt-5">
-                    <button class="btn btn-light" @click="step='contract-type'">
+                    <button class="btn btn-light" @click="step='general-contract-type'">
                         BACK
                     </button>
-                    <button class="btn bg-theme-green text-white"           @click="step='property'">
+                    <button class="btn bg-theme-green text-white" @click="step='term-early-possession'">
                         SAVE AND CONTINUE
                     </button>
                 </div>
             </div>
-            <div v-else-if = "step == 'term-early-possession'"></div>
+            <div v-else-if = "step == 'term-early-possession'">
+                <h2 class="mb-4 font-weight-bold">Early Possession</h2>
+
+                <h4 class="mb-3">Will the tenant be allowed to move in before the lease starts?</h4>
+
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="early_possession" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="early_possession" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+
+                <template v-if = "early_possession">
+                    <h4 class="mb-3">Possession Date</h4>
+                    <div class="mb-4">
+                        <input type="date" class="theme-control" v-model="possession_date">
+                    </div>
+                </template>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='term-lease-term'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'property-address'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
             <div v-else-if = "step == 'property-address'">
                 <h3 class="my-4 font-weight-bold">Property Address</h3>
                 <h6>Where in California is the rental property located?</h6>
@@ -516,10 +557,198 @@
                 </div>
             </div>
             <div v-else-if = "step == 'terms-purchase'"></div>
-            <div v-else-if = "step == 'terms-rent'"></div>
-            <div v-else-if = "step == 'terms-forms-of-payment'"></div>
-            <div v-else-if = "step == 'terms-rent-increase'"></div>
-            <div v-else-if = "step == 'terms-security-deposit'"></div>
+            <div v-else-if = "step == 'terms-rent'">
+                <h2 class="mb-4 font-weight-bold"> Rent </h2>
+
+                <h4 class="mb-3">Will the tenant pay rent monthly?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="rent_monthly" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="rent_monthly" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+
+                <template v-if = "!rent_monthly">
+                    <h4 class="mb-3">How often will the tenant pay rent?</h4>
+                    <div class="mb-4">
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" value="per week" v-model="rent_often" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/weekly.png"> </div>
+                                <div class="label"> Weekly </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" value="every 2 weeks" v-model="rent_often" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/2-weekly.png"> </div>
+                                <div class="label"> Every 2 weeks </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" value="per year" v-model="rent_often" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/weekly.png"> </div>
+                                <div class="label"> Annually </div>
+                            </div>
+                        </label>
+                    </div>
+                </template>
+
+                <h4 class="mb-3"> How much will the tenant pay? </h4>
+                <div class="mb-4">
+                    $<input type="text" class="theme-control" v-model="rent_amount">
+                </div>
+
+                <template v-if = "rent_monthly">
+                    <h4 class="mb-3">What day of the month will rent be paid?</h4>
+                    <div class="mb-4">
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" value="first" v-model="rent_monthly_day" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/first.png"> </div>
+                                <div class="label"> First day </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" value="fifteenth" v-model="rent_monthly_day" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/fifteenth.png"> </div>
+                                <div class="label"> Fifteenth day </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" value="other" v-model="rent_monthly_day" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/rent_other.png"> </div>
+                                <div class="label"> Other </div>
+                            </div>
+                        </label>
+                    </div>
+                </template>
+
+                <template v-if = "rent_monthly_day == 'other' || !rent_monthly">
+                    <h4 class="mb-3">What day will payment be made? </h4>
+                    <div class="mb-4">
+                        <input type="text" class="theme-control" v-model="rent_pay_date">
+                    </div>
+                </template>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-purchase'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-forms-of-payment'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'terms-forms-of-payment'">
+                <h2 class="mb-4 font-weight-bold">Forms of Payment</h2>
+
+                <h4 class="mb-3">What forms of payment will the landlord accept?</h4>
+                <div>
+                    <label class="cursor-pointer d-block">
+                        <input type="checkbox" value="cash" v-model="payment_forms">
+                        <h5 class="ml-3 d-inline">Cash</h5>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="checkbox" value="check" v-model="payment_forms">
+                        <h5 class="ml-3 d-inline">Check</h5>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="checkbox" value="direct debit from a bank or financial institution" v-model="payment_forms">
+                        <h5 class="ml-3 d-inline">Direct debit</h5>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="checkbox" value="Venmo" v-model="payment_forms">
+                        <h5 class="ml-3 d-inline">Venmo</h5>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="checkbox" value="Other" v-model="payment_forms">
+                        <h5 class="ml-3 d-inline">Other</h5>
+                    </label>
+                </div>
+
+                <template v-if = "payment_forms.includes('Other')">
+                    <h4>Describe the other payment method.</h4>
+                    <div class="mb-4">
+                        <input type="text" class="theme-control" v-model="payment_method">
+                    </div>
+                </template>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-rent'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-rent-increase'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'terms-rent-increase'">
+                <h2 class="mb-4">Rent Increase</h2>
+
+                <h4 class="mb-3">How many days of notice will you give before increasing rent?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" :value="true" v-model="rent_increase_legal" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/rent-increase-legal.png"> </div>
+                            <div class="label"> Legal minimum</div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" :value="false" v-model="rent_increase_legal" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/rent-increase-days.png"> </div>
+                            <div class="label"> More than legal minimum</div>
+                        </div>
+                    </label>
+                </div>
+                
+                <template v-if = '!rent_increase_legal'>
+                    <h4 class="mb-3">Number of days before increasing rent:</h4>
+                    <div class="mb-4">
+                        <input type="text" class="theme-control" v-model="rent_increase_days">
+                    </div>
+                </template>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-forms-of-payment'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-security-deposit'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'terms-security-deposit'">
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-rent-increase'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-security-deposit'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
             <div v-else-if = "step == 'terms-pets'">
                 <h3 class="my-4 font-weight-bold">Pets</h3>
                 <h6> Are pets allowed on the property? </h6>
@@ -786,6 +1015,14 @@
                                         <li>
                                             <div>
                                                 The Landlord agrees to rent to the Tenant the {{ _val(property_type) }}, municipally described as {{ _val(property_address) }} (the "Property"), for use as residential premises only.
+                                                <template v-if = "contract_type_comprehensive"> 
+                                                    <template v-if = "terms_home_business">
+                                                        The Tenant may also use part of the Property for the following home-based business: {{ _val( terms_home_business_desc ) }}  The Tenant is responsible for all permits and licenses relating to this home-based business and the Tenant indemnifies the Landlord of all liability, costs, and fees associated with this business.
+                                                    </template>
+                                                    <template v-else>
+                                                        Neither the Property nor any part of the Property will be used at any time during the term of this Lease by Tenant for the purpose of carrying on any business, profession, or trade of any kind, or for the purpose other than as a private single-family residence.
+                                                    </template>
+                                                </template>
                                             </div>
                                         </li>
                                         <li>
@@ -838,16 +1075,37 @@
                                         </li>
                                         <li>
                                             <div>
-                                                The Tenant and members of the Tenant's household will not vape anywhere in the Property nor permit any guests or visitors to vape in the Property.
+                                                <template v-if = 'terms_smoking'>
+                                                    Vaping is permitted on the Property. The Tenant will be responsible for all damage caused by smoking including, but not limited to, stains, burns, odors and removal of debris.
+                                                </template>
+                                                <template v-else>
+                                                    The Tenant and members of the Tenant's household will not vape anywhere in the Property nor permit any guests or visitors to vape in the Property.
+                                                </template>
                                             </div>
                                         </li>
 
                                         <h4>Term</h4>
                                         <li>
                                             <div>
-                                                The term of the Lease commences at 12:00 noon on October 19, 2021 and ends at 12:00 noon on October 19, 2021.
+                                                <template v-if = "term_type == 'fixed'">
+                                                    The term of the Lease commences at 12:00 noon on {{term_start_at}} and ends at 12:00 noon on {{ term_end_at }}.
+                                                </template>
+                                                <template v-else-if = "term_type == 'month-to-month'">
+                                                    The term of the Lease is a periodic tenancy commencing at 12:00 noon on {{ term_start_at }} and continuing on a month-to-month basis until the Landlord or the Tenant terminates the tenancy.
+                                                </template>
+                                                <template v-else-if = "term_type == 'year-to-year'">
+                                                    The term of the Lease is a periodic tenancy commencing at 12:00 noon on {{ term_start_at }} and continuing on a year-to-year basis until the Landlord or the Tenant terminates the tenancy.
+                                                </template>
                                             </div>
                                         </li>
+                                        <template v-if = "early_possession">
+                                            <li>
+                                                <div>
+                                                    Notwithstanding that the term of this Lease commences on {{ term_start_at }}, the Tenant is entitled to possession of the Property at 12:00 noon on {{ possession_date }}.
+                                                </div>
+                                            </li>
+                                        </template>
+                                        
                                         <li>
                                             <div>
                                                 Any notice to terminate this tenancy must comply with the applicable legislation of the State of California (the "Act").
@@ -857,12 +1115,15 @@
                                         <h4>Rent</h4>
                                         <li>
                                             <div>
-                                                Subject to the provisions of this Lease, the rent for the Property is $___________ per month (the "Rent").
+                                                Subject to the provisions of this Lease, the rent for the Property is ${{_val(rent_amount)}} {{rent_monthly ? 'per month' : rent_often}} (the "Rent").
                                             </div>
                                         </li>
                                         <li>
                                             <div>
-                                                The Tenant will pay the Rent on or before the first (1st) day of each and every month of the term of this Lease to the Landlord at __________ or at such other place as the Landlord may later designate by cash or check.
+                                                The Tenant will pay the Rent on or before the {{_val(rent_monthly_day=='other'?rent_pay_date:rent_monthly_day)}} day of each and every month of the term of this Lease to the Landlord at __________ or at such other place as the Landlord may later designate by 
+                                                <template v-for="form in payment_forms">{{ form }}, </template>
+                                                or {{ payment_method }}
+                                                .
                                             </div>
                                         </li>
                                         
@@ -1367,13 +1628,19 @@
             el: "#app",
             data(){
                 return {
-                    step: 'terms-use-of-property',
+                    step: 'terms-rent-increase',
+
                     property_type: 'house',
                     property_location: 'california',
-                    contract_type: 'standard',
+                    contract_type_comprehensive: false,
+
                     term_type: 'fixed',
-                    start_date: new Date().toISOString().substr(0, 10),
-                    end_date: new Date().toISOString().substr(0, 10),
+                    term_start_at: new Date().toISOString().substr(0, 10),
+                    term_end_at: new Date().toISOString().substr(0, 10),
+
+                    early_possession: false,
+                    possession_date: new Date().toISOString().substr(0, 10),
+
                     property_address: '',
                     landlords: [{type: 'individual', name: ''}],
                     exclusive_parking_description: '',
@@ -1400,6 +1667,18 @@
                     terms_pets_charge_amount: null,
                     terms_pets_charge_refundable_days_specific: false,
                     terms_pets_charge_refundable_days: null,
+
+                    rent_monthly: true,
+                    rent_often: 'per week',
+                    rent_amount: null,
+                    rent_monthly_day: 'first', 
+                    rent_pay_date: null,
+
+                    payment_forms: ['cash', 'check'],
+                    payment_method: null,
+
+                    rent_increase_legal: true,
+                    rent_increase_days: null,
 
                     signing_is_when: false,
                     signing_date: new Date().toISOString().substr(0, 10),
