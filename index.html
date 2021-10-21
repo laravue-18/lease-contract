@@ -738,12 +738,89 @@
                 </div>
             </div>
             <div v-else-if = "step == 'terms-security-deposit'">
+                <h2 class="mb-4 font-weight-bold">Security Deposit</h2>
+
+                <h4 class="mb-3">Will a security deposit be required?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="security_deposit" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="security_deposit" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+
+                <template v-if = "security_deposit">
+                    <h4 class="mb-3">Security Deposit Amount:</h4>
+                    <div class="mb-4">
+                        <input type="text" class="theme-control" v-model="security_deposit_amount">
+                    </div>
+
+                    <h4 class="mb-3">Would you like to disclose which bank holds the security deposit?</h4>
+                    <div class="mb-4">
+                        <label class="cursor-pointer">
+                            <input type="radio" :value="true" v-model="security_deposit_bank" hidden>
+                            <div class="label-div text-center">
+                                YES
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" :value="false" v-model="security_deposit_bank" hidden>
+                            <div class="label-div text-center">
+                                NO
+                            </div>
+                        </label>
+                    </div>
+
+                    <template v-if = "security_deposit_bank">
+                        <h4 class="mb-3">Bank Name:</h4>
+                        <div class="mb-4">
+                            <input type="text" class="theme-control" v-model="security_deposit_bank_name">
+                        </div>
+                        <h4 class="mb-3">Bank Address:</h4>
+                        <div class="mb-4">
+                            <input type="text" class="theme-control" v-model="security_deposit_bank_address">
+                        </div>
+                    </template>
+
+                    <h4 class="mb-3">How many days does the landlord have to return the security deposit if the tenant fulfills their lease obligations?</h4>
+                    <div class="mb-4">
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" :value="false" v-model="security_deposit_days" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/legal.png"> </div>
+                                <div class="label"> Use the legal maximum </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" :value="true" v-model="security_deposit_days" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/period.png"> </div>
+                                <div class="label"> Less than legal maximum </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <template v-if = "security_deposit_days">
+                        <h4 class="mb-3">Number of days to return deposit:</h4>
+                        <div class="mb-4">
+                            <input type="text" class="theme-control" v-model="security_deposit_days_value">
+                        </div>
+                    </template>
+                </template>
+
                 <div class="mt-5">
                     <button class="btn btn-light" @click="step='terms-rent-increase'">
                         BACK
                     </button>
                     <button class="btn bg-theme-green text-white" 
-                        @click="step = 'terms-security-deposit'"
+                        @click="step = 'terms-pets'"
                     >
                         SAVE AND CONTINUE
                     </button>
@@ -868,7 +945,193 @@
                     </button>
                 </div>
             </div>
-            <div v-else-if = "step == 'terms-utilities-details'"></div>
+            <div v-else-if = "step == 'terms-utilities-details'">
+                <h2 class="mb-4">Utilities Details</h2>
+
+                <h4 class="mb-3">Who will be responsible for paying utility costs?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" value="tenant" v-model="utilities_cost_responsible" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/63Tenant pays for all utilities2x-min.png"> </div>
+                            <div class="label"> Tenant pays for all utilities </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" value="rent" v-model="utilities_cost_responsible" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/7Do not specify2x-min.png"> </div>
+                            <div class="label"> Utilities included in cost of rent </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" value="shared" v-model="utilities_cost_responsible" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/64Specify2x-min.png"> </div>
+                            <div class="label"> Tenant pays for all utilities </div>
+                        </div>
+                    </label>
+                </div>
+
+                <template v-if = "utilities_cost_responsible !== 'tenant'">
+                    <table class="table table-striped" style="max-width: 500px;">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <template v-if = "utilities_cost_responsible == 'rent'">
+                                    <th>Included</th>
+                                    <th>Not Included</th>
+                                </template>
+                                <template v-else-if = "utilities_cost_responsible == 'shared'">
+                                    <th>Tenant Pays</th>
+                                    <th>Landlord Pays</th>
+                                    <th>Do not specify</th>
+                                </template>
+                            <tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Electricity</td>
+                                <template v-if = "utilities_cost_responsible == 'rent'">
+                                    <td><input type="radio" value="included" v-model="utilities_rent_electricity"></td>
+                                    <td><input type="radio" value="not-included" v-model="utilities_rent_electricity"></td>
+                                </template>
+                                <template v-else-if = "utilities_cost_responsible == 'shared'">
+                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_electricity"></td>
+                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_electricity"></td>
+                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_electricity"></td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td>Water/Sewer</td>
+                                <template v-if = "utilities_cost_responsible == 'rent'">
+                                    <td><input type="radio" value="included" v-model="utilities_rent_water"></td>
+                                    <td><input type="radio" value="not-included" v-model="utilities_rent_water"></td>
+                                </template>
+                                <template v-else-if = "utilities_cost_responsible == 'shared'">
+                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_water"></td>
+                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_water"></td>
+                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_water"></td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td>Internet</td>
+                                <template v-if = "utilities_cost_responsible == 'rent'">
+                                    <td><input type="radio" value="included" v-model="utilities_rent_internet"></td>
+                                    <td><input type="radio" value="not-included" v-model="utilities_rent_internet"></td>
+                                </template>
+                                <template v-else-if = "utilities_cost_responsible == 'shared'">
+                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_internet"></td>
+                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_internet"></td>
+                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_internet"></td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td>Cable</td>
+                                <template v-if = "utilities_cost_responsible == 'rent'">
+                                    <td><input type="radio" value="included" v-model="utilities_rent_cable"></td>
+                                    <td><input type="radio" value="not-included" v-model="utilities_rent_cable"></td>
+                                </template>
+                                <template v-else-if = "utilities_cost_responsible == 'shared'">
+                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_cable"></td>
+                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_cable"></td>
+                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_cable"></td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td>Telephone</td>
+                                <template v-if = "utilities_cost_responsible == 'rent'">
+                                    <td><input type="radio" value="included" v-model="utilities_rent_telephone"></td>
+                                    <td><input type="radio" value="not-included" v-model="utilities_rent_telephone"></td>
+                                </template>
+                                <template v-else-if = "utilities_cost_responsible == 'shared'">
+                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_telephone"></td>
+                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_telephone"></td>
+                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_telephone"></td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td>Natural Gas</td>
+                                <template v-if = "utilities_cost_responsible == 'rent'">
+                                    <td><input type="radio" value="included" v-model="utilities_rent_gas"></td>
+                                    <td><input type="radio" value="not-included" v-model="utilities_rent_gas"></td>
+                                </template>
+                                <template v-else-if = "utilities_cost_responsible == 'shared'">
+                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_gas"></td>
+                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_gas"></td>
+                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_gas"></td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td>Heating Oil/Propane</td>
+                                <template v-if = "utilities_cost_responsible == 'rent'">
+                                    <td><input type="radio" value="included" v-model="utilities_rent_oil"></td>
+                                    <td><input type="radio" value="not-included" v-model="utilities_rent_oil"></td>
+                                </template>
+                                <template v-else-if = "utilities_cost_responsible == 'shared'">
+                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_oil"></td>
+                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_oil"></td>
+                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_oil"></td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td>Garbage Collection</td>
+                                <template v-if = "utilities_cost_responsible == 'rent'">
+                                    <td><input type="radio" value="included" v-model="utilities_rent_garbage"></td>
+                                    <td><input type="radio" value="not-included" v-model="utilities_rent_garbage"></td>
+                                </template>
+                                <template v-else-if = "utilities_cost_responsible == 'shared'">
+                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_garbage"></td>
+                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_garbage"></td>
+                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_garbage"></td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td>Alarm/Security System</td>
+                                <template v-if = "utilities_cost_responsible == 'rent'">
+                                    <td><input type="radio" value="included" v-model="utilities_rent_alarm"></td>
+                                    <td><input type="radio" value="not-included" v-model="utilities_rent_alarm"></td>
+                                </template>
+                                <template v-else-if = "utilities_cost_responsible == 'shared'">
+                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_alarm"></td>
+                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_alarm"></td>
+                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_alarm"></td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td>Other Expenses</td>
+                                <template v-if = "utilities_cost_responsible == 'rent'">
+                                    <td><input type="radio" value="included" v-model="utilities_rent_other"></td>
+                                    <td><input type="radio" value="not-included" v-model="utilities_rent_other"></td>
+                                </template>
+                                <template v-else-if = "utilities_cost_responsible == 'shared'">
+                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_other"></td>
+                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_other"></td>
+                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_other"></td>
+                                </template>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <template v-if = "utilities_cost_responsible == 'rent' && utilities_rent_other != 'not-included' || (utilities_cost_responsible == 'shared' && utilities_shared_other != 'not-specify')">
+                        <h4 class="mb-4">Specify the other Utilities</h4>
+                        <div class="mb-4">
+                            <input type="text" class="theme-control" v-model="utilities_other">
+                        </div>
+                    </template>
+                </template>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-pet-deposit-or-fee'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-maintenance'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
             <div v-else-if = "step == 'terms-maintenance'"></div>
             <div v-else-if = "step == 'terms-insurance'"></div>
             <div v-else-if = "step == 'terms-late-payments'"></div>
@@ -1124,6 +1387,16 @@
                                                 <template v-for="form in payment_forms">{{ form }}, </template>
                                                 or {{ payment_method }}
                                                 .
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <template v-if="rent_increase_legal">
+                                                    The Landlord may increase the Rent for the Property upon providing to the Tenant such notice as required by the Act.
+                                                </template>
+                                                <template v-else>
+                                                    The Landlord may increase the Rent for the Property upon providing to the Tenant the greater of {{ rent_increase_days }} day's notice and any notice required by the Act.
+                                                </template>
                                             </div>
                                         </li>
                                         
@@ -1628,7 +1901,7 @@
             el: "#app",
             data(){
                 return {
-                    step: 'terms-rent-increase',
+                    step: 'terms-utilities-details',
 
                     property_type: 'house',
                     property_location: 'california',
@@ -1679,6 +1952,37 @@
 
                     rent_increase_legal: true,
                     rent_increase_days: null,
+
+                    security_deposit: false,
+                    security_deposit_amount: null,
+                    security_deposit_bank: false,
+                    security_deposit_bank_name: null,
+                    security_deposit_bank_address: null,
+                    security_deposit_days: false,
+                    security_deposit_days_value: null,
+
+                    utilities_cost_responsible: 'tenant',
+                    utilities_rent_electricity: 'not-included',
+                    utilities_shared_electricity: 'not-specify',
+                    utilities_rent_water: 'not-included',
+                    utilities_shared_water: 'not-specify',
+                    utilities_rent_internet: 'not-included',
+                    utilities_shared_internet: 'not-specify',
+                    utilities_rent_cable: 'not-included',
+                    utilities_shared_cable: 'not-specify',
+                    utilities_rent_telephone: 'not-included',
+                    utilities_shared_telephone: 'not-specify',
+                    utilities_rent_gas: 'not-included',
+                    utilities_shared_gas: 'not-specify',
+                    utilities_rent_oil: 'not-included',
+                    utilities_shared_oil: 'not-specify',
+                    utilities_rent_garbage: 'not-included',
+                    utilities_shared_garbage: 'not-specify',
+                    utilities_rent_alarm: 'not-included',
+                    utilities_shared_alarm: 'not-specify',
+                    utilities_rent_other: 'not-included',
+                    utilities_shared_other: 'not-specify',
+                    utilities_other: '',
 
                     signing_is_when: false,
                     signing_date: new Date().toISOString().substr(0, 10),
