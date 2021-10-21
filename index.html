@@ -334,7 +334,32 @@
                     </button>
                 </div>
             </div>
-            <div v-else-if = "step == 'property-additional-detail'"></div>
+            <div v-else-if = "step == 'property-additional-detail'">
+                <h2 class="mb-4">Additional Property Details</h2>
+                <h4 class="mb-4">Would you like to describe the rental property in more detail?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="property_more_detail" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="property_more_detail" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='property-address'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" @click="step='parties-landlord-info'">
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
             <div v-else-if = "step == 'parties-landlord-info'">
                 <h3 class="my-4">Landlord Information</h3>
                 <h6>Who is the landlord?</h6>
@@ -391,18 +416,102 @@
                 </h5>
             
                 <div class="mt-5">
-                    <button class="btn btn-light" @click="step='property'">
+                    <button class="btn btn-light" @click="step='property-additional-detail'">
                         BACK
                     </button>
-                    <button class="btn bg-theme-green text-white" @click="step='terms'">
+                    <button class="btn bg-theme-green text-white" @click="step='parties-landlord-contact'">
                         SAVE AND CONTINUE
                     </button>
                 </div>
             </div>
-            <div v-else-if = "step == 'parties-landlord-contact'"></div>
-            <div v-else-if = "step == 'parties-tenant-info'"></div>
-            <div v-else-if = "step == 'parties-tenant-contact'"></div>
-            <div v-else-if = "step == 'parties-guarantor-info'"></div>
+            <div v-else-if = "step == 'parties-landlord-contact'">
+                <h2 class="mb-4">Landlord Contact</h2>
+                <h4 class="mb-4">How can the landlords be contacted?</h4>
+                <div class="mb-4">
+                    <input type="text" class="theme-control" v-model="landlord_phone" placeholder="Phone">
+                </div>
+                <div class="mb-4">
+                    <input type="text" class="theme-control" v-model="landlord_email" placeholder="Email">
+                </div>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='parties-landlord-info'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'parties-tenant-info'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'parties-tenant-info'">
+                <h2 class="mb-4">Tenant Information</h2>
+                <h4 class="mb-4">Who will be paying rent?</h4>
+                <div class="mb-4">
+                    <input type="text" class="theme-control" v-model="tenant_name" placeholder="Full Name">
+                </div>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='parties-landlord-contact'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'parties-tenant-contact'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'parties-tenant-contact'">
+                <h2 class="mb-4">Tenant Contact Information</h2>
+                <h4 class="mb-4">How can the tenant be contacted?</h4>
+                <div class="mb-4">
+                    <input type="text" class="theme-control" v-model="tenant_phone" placeholder="Phone">
+                </div>
+                <div class="mb-4">
+                    <input type="text" class="theme-control" v-model="tenant_email" placeholder="Email">
+                </div>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='parties-tenant-info'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'parties-guarantor-info'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'parties-guarantor-info'">
+                <h2 class="mb-4">Guarantor Information</h2>
+                <h4 class="mb-4">Will anyone else sign the lease and be responsible for rent if the tenant does not pay?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="guarantor" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="guarantor" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='parties-tenant-contact'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-parking'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
             <div v-else-if = "step == 'terms-parking'">
                 <h2 class="mb-4 font-weight-bold">Parking</h2>
                 
@@ -446,10 +555,10 @@
                 </template>
             
                 <div class="mt-5">
-                    <button class="btn btn-light" @click="step='parties'">
+                    <button class="btn btn-light" @click="step='parties-guarantor-info'">
                         BACK
                     </button>
-                    <button class="btn bg-theme-green text-white" @click="step='details'">
+                    <button class="btn bg-theme-green text-white" @click="step='terms-furnishings'">
                         SAVE AND CONTINUE
                     </button>
                 </div>
@@ -556,7 +665,34 @@
                     </button>
                 </div>
             </div>
-            <div v-else-if = "step == 'terms-purchase'"></div>
+            <div v-else-if = "step == 'terms-purchase'">
+                <h2 class="mb-4">Option to Purchase</h2>
+                <h4 class="mb-4">Will the tenant be given the option to purchase the property?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="option_purchase" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="option_purchase" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-use-of-property'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-rent'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
             <div v-else-if = "step == 'terms-rent'">
                 <h2 class="mb-4 font-weight-bold"> Rent </h2>
 
@@ -1132,13 +1268,251 @@
                     </button>
                 </div>
             </div>
-            <div v-else-if = "step == 'terms-maintenance'"></div>
-            <div v-else-if = "step == 'terms-insurance'"></div>
-            <div v-else-if = "step == 'terms-late-payments'"></div>
-            <div v-else-if = "step == 'terms-notices'"></div>
+            <div v-else-if = "step == 'terms-maintenance'">
+                <h2 class="mb-4">Maintenance</h2>
+                
+                <h4 class="mb-3">Will the tenant be responsible for any maintenance?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="terms_maintenance" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="terms_maintenance" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+
+                <template v-if = "terms_maintenance">
+                    <h4 class="mb-3">Select the tenant's maintenance responsibilities:</h4>
+                    <div>
+                        <label class="cursor-pointer d-block">
+                            <input type="checkbox" value="Fixtures/Heating" v-model="maintenance_responsibilities">
+                            <h5 class="ml-3 d-inline">Fixtures/Heating</h5>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="checkbox" value="Sidewalk/Driveways" v-model="maintenance_responsibilities">
+                            <h5 class="ml-3 d-inline">Sidewalk/Driveways</h5>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="checkbox" value="Grass/Garden" v-model="maintenance_responsibilities">
+                            <h5 class="ml-3 d-inline">Grass/Garden</h5>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="checkbox" value="other" v-model="maintenance_responsibilities">
+                            <h5 class="ml-3 d-inline">Other</h5>
+                        </label>
+                    </div>
+                    <template v-if = "maintenance_responsibilities.includes('other')">
+                        <h4 class="mb-3">Specify the tenant's other maintenance: </h4>
+                        <div class="mb-4">
+                            <input type="text" class="theme-control" v-model="maintenance_other">
+                        </div>
+                    </template>
+                </template>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-utilities-details'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-insurance'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'terms-insurance'">
+                <h2 class="mb-4">Insurance</h2>
+
+                <h4 class="mb-3">Will the tenant be required to pay any insurance costs?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="terms_insurance" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="terms_insurance" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+                <template v-if = "terms_insurance">
+                    <h4 class="mb-3">Select the type of insurance the tenant will be responsible for: </h4>
+                    <div>
+                        <label class="cursor-pointer d-block">
+                            <input type="checkbox" value="Landlord's contents" v-model="insurance_type">
+                            <h5 class="ml-3 d-inline">Landlord's contents</h5>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="checkbox" value="Damage to rental property" v-model="insurance_type">
+                            <h5 class="ml-3 d-inline">Damage to rental property</h5>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="checkbox" value="Personal injury on property" v-model="insurance_type">
+                            <h5 class="ml-3 d-inline">Personal injury on property</h5>
+                        </label>
+                    </div>
+                    <template v-if = "insurance_type.length">
+                        <h4 class="mb-3">Tenant to provide proof of insurance:</h4>
+                        <div class="mb-4">
+                            <label class="cursor-pointer d-block">
+                                <input type="radio" value="do-not-specify" v-model="insurance_proof" hidden>
+                                <div class="label-div hasIcon">
+                                    <div class="icon"> <img src="img/7Do not specify2x-min.png"> </div>
+                                    <div class="label">Do not specify </div>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer d-block">
+                                <input type="radio" value="do-not-specify" v-model="insurance_proof" hidden>
+                                <div class="label-div hasIcon">
+                                    <div class="icon"> <img src="img/66 When insurance is issued or renewed2x.png"> </div>
+                                    <div class="label">When insurance is issued or renewed </div>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer d-block">
+                                <input type="radio" value="do-not-specify" v-model="insurance_proof" hidden>
+                                <div class="label-div hasIcon">
+                                    <div class="icon"> <img src="img/67 Upon Request2x.png"> </div>
+                                    <div class="label">Upon request</div>
+                                </div>
+                            </label>
+                        </div>
+                    </template>
+                </template>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-maintenance'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-late-payments'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'terms-late-payments'">
+                <h2 class="mb-4">Late Payments</h2>
+                <h4 class="mb-3">How much will the tenant be charged for Not-Sufficient-Funds checks?</h4>
+                <h5 class="mb-3">Charge Amount:</h5>
+                <div class="mb-4">
+                    $<input type="text" class="theme-control" v-model="late_payments_charge_amount">
+                </div>
+                <h4 class="mb-4">Do you want to charge the tenant for late rent payments?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="late_payments" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="late_payments" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+                <template v-if = "late_payments">
+                    <h4 class="mb-4">What will the tenant be charged for paying rent late?</h4>
+                    <div class="mb-4">
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" value="fixed-per-payment" v-model="paying_late_charge" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/54Fixed charge per late payment2x-min.png"> </div>
+                                <div class="label"> Fixed charge per late payment </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" value="fixed-per-day" v-model="paying_late_charge" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/53Fixed charge per day2x-min.png"> </div>
+                                <div class="label"> Fixed charge per day </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" value="percentage-of-rent" v-model="paying_late_charge" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/52Percentage of rent2x-min.png"> </div>
+                                <div class="label"> Percentage of rent </div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer d-block">
+                            <input type="radio" value="other" v-model="paying_late_charge" hidden>
+                            <div class="label-div hasIcon">
+                                <div class="icon"> <img src="img/55Other2x-min.png"> </div>
+                                <div class="label"> Other </div>
+                            </div>
+                        </label>
+                    </div>
+                    <h4 class="mb-4">Days Before Late Fee Applies</h4>
+                    <div class="mb-4">
+                        <input type="text" class="theme-control" v-model="days_before_late_fee_applies">
+                    </div>
+                    <h4 class="mb-4">Late Charge Amount:</h4>
+                    <div class="mb-4">
+                        <input type="text" class="theme-control" v-model="late_charge_amount">
+                    </div>
+                </template>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-insurance'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'terms-notices'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'terms-notices'">
+                <h2 class="mb-4">Notices</h2>
+                <h4 class="mb-3">How much notice must the landlord give before entering the property (non-emergency)?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" :value="true" v-model="terms_notices_entering_legal" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/34Legal minimum2x-min.png"> </div>
+                            <div class="label"> More than legal minimum </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" :value="false" v-model="terms_notices_entering_legal" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/58More than legal minimum2x-min.png"> </div>
+                            <div class="label"> More than legal minimum </div>
+                        </div>
+                    </label>
+                </div>
+                <template v-if =  "!terms_notices_entering_legal">
+                    <h4 class="mb-4">Number of hours:</h4>
+                    <div class="mb-4">
+                        <input type="text" class="theme-control" v-model="terms_notices_entering_hours">
+                    </div>
+                </template>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='terms-late-payments'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'details-landlord-improvement'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
             <div v-else-if = "step == 'details-landlord-improvement'">
-                <h3 class="my-4">Landlord Improvements and Signing Incentives</h3>
-                <h6>Will the landlord be required to make any improvements to the property?</h6>
+                <h2 class="mb-4">Landlord Improvements and Signing Incentives</h2>
+                <h4 class="mb-4">Will the landlord be required to make any improvements to the property?</h4>
             
                 <label class="cursor-pointer my-4">
                     <input type="radio" :value="true" v-model="is_landlord_improvement" hidden>
@@ -1179,21 +1553,217 @@
                 </template>
             
                 <div class="mt-5">
-                    <button class="btn btn-light" @click="step='terms'">
+                    <button class="btn btn-light" @click="step='terms-notices'">
                         BACK
                     </button>
-                    <button class="btn bg-theme-green text-white" @click="step='signing'">
+                    <button class="btn bg-theme-green text-white" @click="step='details-tenant-improvement'">
                         SAVE AND CONTINUE
                     </button>
                 </div>
             </div>
-            <div v-else-if = "step == 'details-tenant-improvement'"></div>
-            <div v-else-if = "step == 'details-contact-address'"></div>
-            <div v-else-if = "step == 'details-environmental-Disclosures'"></div>
-            <div v-else-if = "step == 'details-disputue-resolution'"></div>
-            <div v-else-if = "step == 'details-assignment'"></div>
-            <div v-else-if = "step == 'details-inspection-report'"></div>
-            <div v-else-if = "step == 'details-additional-clauses'"></div>
+            <div v-else-if = "step == 'details-tenant-improvement'">
+                <h2 class="mb-4">Tenant Improvements</h2>
+                <h4 class="mb-4">Will the tenant be allowed to make improvements to the property?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" value="landlord-consent" v-model="terms_pets_charge_refundable" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/65Only with the landlord's consent2x-min.png"> </div>
+                            <div class="label"> Only with the landlord's consent </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" value="specify-terms" v-model="terms_pets_charge_refundable" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/66Yes, specify terms2x-min.png"> </div>
+                            <div class="label"> Yes, specify terms </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" value="no" v-model="terms_pets_charge_refundable" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/10No2x-min.png"> </div>
+                            <div class="label"> No</div>
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='details-landlord-improvement'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'details-contact-address'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'details-contact-address'">
+                <h2 class="mb-4">Contact Address</h2>
+                <h4 class="mb-4">Where will the tenant send notices for the landlord?</h4>
+                <div class="mb-4">
+                    <input type="text" class="theme-control" v-model="terms_contact_address">
+                </div>
+                <h4 class="mb-4">Will the tenant pay rent to the above address?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="pay_contact_address" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="pay_contact_address" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='details-tenant-improvement'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'details-disputue-resolution'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'details-environmental-Disclosures'">
+
+            </div>
+            <div v-else-if = "step == 'details-disputue-resolution'">
+                <h2 class="mb-4">Dispute Resolution</h2>
+                <h4 class="mb-4">How will disputes be resolved?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" value="not-include" v-model="dispute_resolve" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/7Do not specify2x-min.png"> </div>
+                            <div class="label"> Do not include in the contract </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" value="mediation" v-model="dispute_resolve" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/75Mediation2x-min.png"> </div>
+                            <div class="label"> Mediation </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" value="arbitration" v-model="dispute_resolve" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/76Arbitration2x-min.png"> </div>
+                            <div class="label"> Arbitration </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" value="mediation-arbitration" v-model="dispute_resolve" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/77Mediation then Arbitration2x-min.png"> </div>
+                            <div class="label"> Mediation then arbitration </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='details-contact-address'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'details-assignment'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'details-assignment'">
+                <h2 class="mb-4">Assignment</h2>
+                <h4 class="mb-4">Can the tenant assign/sublease the property?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" :value="true" v-model="assignment" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/65Only with the landlord's consent2x-min.png"> </div>
+                            <div class="label"> Only with the landlord's consent </div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer d-block">
+                        <input type="radio" :value="false" v-model="assignment" hidden>
+                        <div class="label-div hasIcon">
+                            <div class="icon"> <img src="img/10No2x-min.png"> </div>
+                            <div class="label"> No </div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='details-disputue-resolution'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'details-inspection-report'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'details-inspection-report'">
+                <h2 class="mb-4">Inspection Report</h2>
+                <h4 class="mb-4">Will a walkthrough inspection report be completed at the start and end of the lease?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="inspection_report" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="inspection_report" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='details-assignment'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'details-additional-clauses'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
+            <div v-else-if = "step == 'details-additional-clauses'">
+                <h2 class="mb-4">Additional Clauses</h2>
+                <h4 class="mb-4">Do you want to include any additional terms or information?</h4>
+                <div class="mb-4">
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="true" v-model="additional_clauses" hidden>
+                        <div class="label-div text-center">
+                            YES
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" :value="false" v-model="additional_clauses" hidden>
+                        <div class="label-div text-center">
+                            NO
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-5">
+                    <button class="btn btn-light" @click="step='details-inspection-report'">
+                        BACK
+                    </button>
+                    <button class="btn bg-theme-green text-white" 
+                        @click="step = 'signing'"
+                    >
+                        SAVE AND CONTINUE
+                    </button>
+                </div>
+            </div>
             <div v-else-if = "step == 'signing'">
                 <h3 class="my-4">Signing Details</h3>
                 <h6>When will the Lease be signed?</h6>
@@ -1225,7 +1795,7 @@
                     <input type="date" v-model="sign_date" class="theme-control">
                 </template>
                 <div class="mt-5">
-                    <button class="btn btn-light" @click="step='details'">
+                    <button class="btn btn-light" @click="step='details-additional-clauses'">
                         BACK
                     </button>
                     <button class="btn bg-theme-green text-white" @click="step='download'">
@@ -1902,7 +2472,7 @@
             data(){
                 return {
                     step: 'general-property-type',
-                    // step: 'terms-utilities-details',
+                    // step: 'details-tenant-improvement',
 
                     property_type: 'house',
                     property_location: 'california',
@@ -1916,12 +2486,23 @@
                     possession_date: new Date().toISOString().substr(0, 10),
 
                     property_address: '',
+                    property_more_detail: false,
+
                     landlords: [{type: 'individual', name: ''}],
                     exclusive_parking_description: '',
                     is_landlord_improvement: false,
                     landlord_improvement_description: '',
                     is_signing_incentives: false,
                     signing_incentives_description: '',
+
+                    landlord_phone: null,
+                    landlord_email: null,
+
+                    tenant_name: null,
+                    tenant_phone: null,
+                    tenant_email: null,
+
+                    guarantor: false,
 
                     terms_parking: false,
                     terms_parking_exclusive: false,
@@ -1941,6 +2522,8 @@
                     terms_pets_charge_amount: null,
                     terms_pets_charge_refundable_days_specific: false,
                     terms_pets_charge_refundable_days: null,
+
+                    option_purchase: false,
 
                     rent_monthly: true,
                     rent_often: 'per week',
@@ -1984,6 +2567,36 @@
                     utilities_rent_other: 'not-included',
                     utilities_shared_other: 'not-specify',
                     utilities_other: '',
+
+                    terms_maintenance: false,
+                    maintenance_responsibilities: [],
+                    maintenance_other: '',
+
+                    terms_insurance: false,
+                    insurance_type: [],
+                    insurance_proof: 'do-not-specify',
+
+                    late_payments_charge_amount: 25.00,
+                    late_payments: false,
+                    paying_late_charge: 'fixed-per-payment',
+                    days_before_late_fee_applies: null,
+                    late_charge_amount: null,
+
+                    terms_notices_entering_legal: true,
+                    terms_notices_entering_hours: null,
+
+                    improvement_allowed: 'landlord-consent',
+
+                    terms_contact_address: null,
+                    pay_contact_address: true,
+
+                    dispute_resolve: 'not-include',
+
+                    assignment: true,
+
+                    inspection_report: true,
+
+                    additional_clauses: false,
 
                     signing_is_when: false,
                     signing_date: new Date().toISOString().substr(0, 10),

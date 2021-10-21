@@ -19,7 +19,7 @@
 
 <div class="mb-4">
     <label class="cursor-pointer d-block">
-        <input type="radio" :value="false" v-model="terms_pets_charge_refundable" hidden>
+        <input type="radio" value="false" v-model="terms_pets_charge_refundable" hidden>
         <div class="label-div hasIcon">
             <div class="icon"> <img src="img/non-refundable.png"> </div>
             <div class="label"> Non-refundable pet fee </div>
@@ -28,7 +28,7 @@
 </div>
 
 <div class="mt-5">
-    <button class="btn btn-light" @click="step='property-location'">
+    <button class="btn btn-light" @click="step=''">
         BACK
     </button>
     <button class="btn bg-theme-green text-white" 
@@ -40,4 +40,15 @@
 
 <div class="mb-4">
     <input type="text" class="theme-control" v-model="">
+</div>
+
+<div>
+    <label class="cursor-pointer d-block">
+        <input type="checkbox" value="cash" v-model="payment_forms">
+        <h5 class="ml-3 d-inline">Cash</h5>
+    </label>
+    <label class="cursor-pointer d-block">
+        <input type="checkbox" value="Other" v-model="payment_forms">
+        <h5 class="ml-3 d-inline">Other</h5>
+    </label>
 </div>
