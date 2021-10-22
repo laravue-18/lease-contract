@@ -161,9 +161,9 @@
                 </div>
             </div>
             <div v-else-if = "step == 'general-property-location'">
-                <h3 class="my-4">Property Location</h3>
-                <h6>Where is the rental property located?</h6>
-                <h6 class="text-theme-green">State:</h6>
+                <h2 class="my-4">Property Location</h2>
+                <h4>Where is the rental property located?</h4>
+                <h4 class="text-theme-green">State:</h4>
                 <select class="theme-control">
                     <option value="california">California</option>
                 </select>
@@ -177,7 +177,7 @@
                 </div>
                 <br>
                 <div class="mt-5">
-                    <button class="btn btn-light" @click="step='property-type'">
+                    <button class="btn btn-light" @click="step='general-property-type'">
                         BACK
                     </button>
                     <button class="btn bg-theme-green text-white" @click="step='general-contract-type'">
@@ -326,7 +326,7 @@
                 <input type="text" v-model="property_address" class="theme-control">
             
                 <div class="mt-5">
-                    <button class="btn btn-light" @click="step='term'">
+                    <button class="btn btn-light" @click="step='term-early-possession'">
                         BACK
                     </button>
                     <button class="btn bg-theme-green text-white" @click="step='property-additional-detail'">
@@ -361,8 +361,8 @@
                 </div>
             </div>
             <div v-else-if = "step == 'parties-landlord-info'">
-                <h3 class="my-4">Landlord Information</h3>
-                <h6>Who is the landlord?</h6>
+                <h2 class="my-4">Landlord Information</h2>
+                <h4>Who is the landlord?</h4>
             
                 <template v-for="(i, idx) in landlords">
                     <div class="shadow p-4 my-4">
@@ -989,7 +989,7 @@
                     </label>
                 </div>
                 <div class="mt-5">
-                    <button class="btn btn-light" @click="step='property-location'">
+                    <button class="btn btn-light" @click="step='terms-security-deposit'">
                         BACK
                     </button>
                     <button class="btn bg-theme-green text-white" 
@@ -2034,11 +2034,100 @@
                                             </template>
                                         </template>
                                         
+                                        <template v-if = "security_deposit">
+                                            <h4>Security Deposit</h4>
+                                            <li>
+                                                <div>
+                                                    On execution of this Lease, the Tenant will pay the Landlord a security deposit of ${{_val(security_deposit_amount)}}
+                                                </div>
+                                            </li>
+                                            <template v-if = "security_deposit_bank">
+                                                <li><div>
+                                                    The Landlord will hold the Security Deposit at an interest bearing account solely devoted to security deposits at {{_val(security_deposit_bank_name)}} located at {{_val(security_deposit_bank_address)}}
+                                                </div></li>
+                                            </template>
+                                            <template v-else>
+                                                <li>
+                                                    <div>
+                                                        The Landlord will hold the Security Deposit at an interest bearing account solely devoted to security deposits.
+                                                    </div>
+                                                    
+                                                </li>
+                                            </template>
+                                            <li><div>
+                                                During the term of this Lease or after its termination, the Landlord may charge the Tenant or make deductions from the Security Deposit for any or all of the following:
+                                                <ol type="a">
+                                                    <li><div>
+                                                        repair of walls due to plugs, large nails or any unreasonable number of holes in the walls including the repainting of such damaged walls;
+                                                    </div></li>
+                                                    <li><div>
+                                                        repainting required to repair the results of any other improper use or excessive damage by the Tenant;
+                                                    </div></li>
+                                                    <li><div>
+                                                        unplugging toilets, sinks and drains;
+                                                    </div></li>
+                                                    <li><div>
+                                                        replacing damaged or missing doors, windows, screens, mirrors or light fixtures;
+                                                    </div></li>
+                                                    <li><div>
+                                                        repairing cuts, burns, or water damage to linoleum, rugs, and other areas;
+                                                    </div></li>
+                                                    <li>
+                                                        <div>
+                                                            any other repairs or cleaning due to any damage beyond normal wear and tear caused or permitted by the Tenant or by any person whom the Tenant is responsible for;
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            the cost of extermination where the Tenant or the Tenant's guests have brought or allowed insects into the Property or building;
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            repairs and replacement required where windows are left open which have caused plumbing to freeze, or rain or water damage to floors or walls;
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            any other purpose allowed under this Lease or the Act.
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                                <p>
+                                                    For the purpose of this clause, the Landlord may charge the Tenant for professional cleaning and repairs if the Tenant has not made alternate arrangements with the Landlord.
+                                                </p>
+                                            </div></li>
+                                            <li>
+                                                <div>
+                                                    The Tenant may not use the Security Deposit as payment for the Rent.
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div>
+                                                    The Landlord will return the Security Deposit at the end of this tenancy, less such deductions as provided in this Lease but no deduction will be made for damage due to reasonable wear and tear nor for any deduction prohibited by the Act.
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div>
+                                                    <template v-if = "security_deposit_days">
+                                                        Within the time period required by the Act and after the termination of this tenancy, the Landlord will deliver or mail the Security Deposit less any proper deductions or with further demand for payment to: ________________________________________________________, or at such other place as the Tenant may advise.
+                                                    </template>
+                                                    <template v-else>
+                                                        Within the lesser of {{_val(security_deposit_days_value)}} and any time period required by the Act and after the termination of this tenancy, the Landlord will deliver or mail the Security Deposit less any proper deductions or with further demand for payment to: ________________________________________________________, or at such other place as the Tenant may advise.
+                                                    </template>
+                                                </div>
+                                            </li>
+                                        </template>
 
                                         <h4>Inspections</h4>
                                         <li>
                                             <div>
-                                                The Parties will complete, sign and date an inspection report at the beginning and at the end of this tenancy.
+                                                <template v-if = "inspection_report">
+                                                    The Parties will complete, sign and date an inspection report at the beginning and at the end of this tenancy.
+                                                </template>
+                                                <template v-else>
+                                                    The Tenant acknowledges that the Tenant inspected the Property, including the grounds and all buildings and improvements, and that they are, at the time of the execution of this Lease, in good order, good repair, safe, clean, and tenantable condition.
+                                                </template>
                                             </div>
                                         </li>
 
