@@ -374,9 +374,9 @@
                                 Landlord
                             </h5>
                             <p
-                                v-if="landlords.length - 1"
+                                v-if="tenants.length - 1"
                                 class="cursor-pointer"
-                                @click="remove_landlord(idx)"
+                                @click="remove_tenant(idx)"
                             >REMOVE</p>
                         </div>
                         <h5 class="text-theme-green">Type:</h5>
@@ -448,9 +448,31 @@
             <div v-else-if = "step == 'parties-tenant-info'">
                 <h2 class="mb-4">Tenant Information</h2>
                 <h4 class="mb-4">Who will be paying rent?</h4>
-                <div class="mb-4">
-                    <input type="text" class="theme-control" v-model="tenant_name" placeholder="Full Name">
-                </div>
+                
+                <template v-for = "(i, idx) in tenants">
+                    <div class="row">
+                        <div class="col-md-6 card">
+                            <div class="card-body">
+                                <p class="text-right">
+                                    <span
+                                        v-if="tenants.length - 1"
+                                        class="cursor-pointer text-danger"
+                                        @click="remove_tenant(idx)"
+                                    >REMOVE</span>
+                                </p>
+                                <h5 class="text-theme-green">Full Name:</h5>
+                                <input type="text" class="theme-control" v-model="tenants[idx]" placeholder="Full Name">
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <h5
+                    class="mt-3 text-theme-green-2 cursor-pointer"
+                    @click="tenants.push('')"
+                >
+                    + Add another tenant
+                </h5>
 
                 <div class="mt-5">
                     <button class="btn btn-light" @click="step='parties-landlord-contact'">
@@ -810,18 +832,18 @@
                         <input type="checkbox" value="Venmo" v-model="payment_forms">
                         <h5 class="ml-3 d-inline">Venmo</h5>
                     </label>
-                    <label class="cursor-pointer d-block">
+                    <!-- <label class="cursor-pointer d-block">
                         <input type="checkbox" value="Other" v-model="payment_forms">
                         <h5 class="ml-3 d-inline">Other</h5>
-                    </label>
+                    </label> -->
                 </div>
 
-                <template v-if = "payment_forms.includes('Other')">
+                <!-- <template v-if = "payment_forms.includes('Other')">
                     <h4>Describe the other payment method.</h4>
                     <div class="mb-4">
                         <input type="text" class="theme-control" v-model="payment_method">
                     </div>
-                </template>
+                </template> -->
 
                 <div class="mt-5">
                     <button class="btn btn-light" @click="step='terms-rent'">
@@ -1837,7 +1859,9 @@
                                     <p class="text-center">- AND-</p>
                                     <p class="text-center">
                                         <span class="font-weight-bold">
-                                            _________________________
+                                            <template v-for = "(tenant, idx) in tenants">
+                                                {{ _val(tenant) }} {{idx < tenants.length - 2 ? ', ' : ''}} {{idx == tenants.length - 2 ? ' and ' : ''}}
+                                            </template>
                                         </span>
                                     </p>
                                     <p class="text-center">(the "Tenant")</p>
@@ -1919,6 +1943,13 @@
                                                 </template>
                                             </div>
                                         </li>
+                                        <template v-if = "terms_furnished">
+                                            <li>
+                                                <div>
+                                                    The Landlord agrees to supply and the Tenant agrees to use and maintain in reasonable condition, normal wear and tear excepted, the following furnishings: {{_val(terms_furnishings)}}.
+                                                </div>
+                                            </li>
+                                        </template>
 
                                         <h4>Term</h4>
                                         <li>
@@ -1956,9 +1987,10 @@
                                         </li>
                                         <li>
                                             <div>
-                                                The Tenant will pay the Rent on or before the {{_val(rent_monthly_day=='other'?rent_pay_date:rent_monthly_day)}} day of each and every month of the term of this Lease to the Landlord at __________ or at such other place as the Landlord may later designate by 
-                                                <template v-for="form in payment_forms">{{ form }}, </template>
-                                                or {{ payment_method }}
+                                                The Tenant will pay the Rent on or before the {{_val(rent_monthly_day=='other'?rent_pay_date:rent_monthly_day)}} day of each and every month of the term of this Lease to the Landlord at {{ _val(terms_contact_address)}} or at such other place as the Landlord may later designate by 
+                                                <template v-for="(form, idx) in payment_forms">
+                                                    {{ form }} {{ idx < payment_forms.length -2 ? ', ' : ''}} {{ idx == payment_forms.length - 2 ? ' or ' : ''}}
+                                                </template>
                                                 .
                                             </div>
                                         </li>
@@ -2178,17 +2210,65 @@
                                             </div>
                                         </li>
                                         <!-- Utilities and Other Charges -->
-                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
-                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;"> Utilities and Other Charges </span>
-                                        </li>
-                                        <li style="margin-bottom:6.0pt;" value="14">
-                                            <div>
-                                                The Tenant is responsible for the payment of all utilities in relation to the Property.
-                                            </div>
-                                        </li>
-                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
-                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Insurance</span>
-                                        </li>
+                                        <h4> Utilities and Other Charges </h4>
+                                        <template v-if = "utilities_cost_responsible == 'tenant'">
+                                            <li>
+                                                <div>
+                                                    The Tenant is responsible for the payment of all utilities in relation to the Property.
+                                                </div>
+                                            </li>
+                                        </template>
+                                        <template v-if = "utilities_cost_responsible == 'rent'">
+                                            <li>
+                                                <div>
+                                                    The Landlord is responsible for the payment of the following utilities and other charges in relation to the Property: 
+                                                    {{ utilities_rent_electricity == 'landlord-pays' ? 'electricity' : ''}}
+                                                    {{ utilities_rent_water == 'landlord-pays' ? ', water/sewer' : ''}}
+                                                    {{ utilities_rent_internet == 'landlord-pays' ? ', internet' : ''}}
+                                                    {{ utilities_rent_cable == 'landlord-pays' ? ', cable' : ''}}
+                                                    {{ utilities_rent_telephone == 'landlord-pays' ? ', telephone' : ''}}
+                                                    {{ utilities_rent_gas == 'landlord-pays' ? ', gas' : ''}}
+                                                    {{ utilities_rent_oil == 'landlord-pays' ? ', oil' : ''}}
+                                                    {{ utilities_rent_garbage == 'landlord-pays' ? ', garbage' : ''}}
+                                                    {{ utilities_rent_alarm == 'landlord-pays' ? ', alarm' : ''}}
+                                                    .
+                                                </div>
+                                            </li>
+                                        </template>
+                                        <template v-if = "utilities_cost_responsible == 'shared'">
+                                            <li>
+                                                <div>
+                                                    The Landlord is responsible for the payment of the following utilities and other charges in relation to the Property: 
+                                                    {{ utilities_rent_electricity == 'included' ? 'electricity' : ''}}
+                                                    {{ utilities_rent_water == 'included' ? ', water/sewer' : ''}}
+                                                    {{ utilities_rent_internet == 'included' ? ', internet' : ''}}
+                                                    {{ utilities_rent_cable == 'included' ? ', cable' : ''}}
+                                                    {{ utilities_rent_telephone == 'included' ? ', telephone' : ''}}
+                                                    {{ utilities_rent_gas == 'included' ? ', gas' : ''}}
+                                                    {{ utilities_rent_oil == 'included' ? ', oil' : ''}}
+                                                    {{ utilities_rent_garbage == 'included' ? ', garbage' : ''}}
+                                                    {{ utilities_rent_alarm == 'included' ? ', alarm' : ''}}
+                                                    .
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div>
+                                                    The Tenant is responsible for the payment of the following utilities and other charges in relation to the Property:
+                                                    {{ utilities_rent_electricity == 'tenant-pays' ? 'electricity' : ''}}
+                                                    {{ utilities_rent_water == 'tenant-pays' ? ', water/sewer' : ''}}
+                                                    {{ utilities_rent_internet == 'tenant-pays' ? ', internet' : ''}}
+                                                    {{ utilities_rent_cable == 'tenant-pays' ? ', cable' : ''}}
+                                                    {{ utilities_rent_telephone == 'tenant-pays' ? ', telephone' : ''}}
+                                                    {{ utilities_rent_gas == 'tenant-pays' ? ', gas' : ''}}
+                                                    {{ utilities_rent_oil == 'tenant-pays' ? ', oil' : ''}}
+                                                    {{ utilities_rent_garbage == 'tenant-pays' ? ', garbage' : ''}}
+                                                    {{ utilities_rent_alarm == 'tenant-pays' ? ', alarm' : ''}}
+                                                    .
+                                                </div>
+                                            </li>
+                                        </template>
+
+                                        <h4>Insurance</h4>
                                         <li style="margin-bottom:6.0pt;" value="15">
                                             <div>
                                                 The Tenant is hereby advised and understands that the personal property of the Tenant is not insured by the Landlord for either damage or loss, and the Landlord assumes no liability for any such loss.
@@ -2228,9 +2308,8 @@
                                                 The invalidity or unenforceability of any provisions of this Lease will not affect the validity or enforceability of any other provision of this Lease. &nbsp;Such other provisions remain in full force and effect.
                                             </div>
                                         </li>
-                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
-                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Amendment of Lease</span>
-                                        </li>
+
+                                        <h4>Amendment of Lease</h4>
                                         <li style="margin-bottom:6.0pt;" value="21">
                                             <div>
                                                 This Lease may only be amended or modified by a written document executed by the Parties.
@@ -2306,21 +2385,20 @@
                                                 NOTICE: Pursuant to Section 290.46 of the Penal Code, information about specified registered sex offenders is made available to the public via an Internet website maintained by the Department of Justice at www.meganslaw.ca.gov. Depending on the offender’s criminal history, this information will include either the address at which the offender resides or the community of residence and ZIP Code in which he or she resides.
                                             </div>
                                         </li>
-                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
-                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Address for Notice</span>
-                                        </li>
+
+                                        <h4>Address for Notice</h4>
                                         <li style="margin-bottom:6.0pt;" value="33">
                                             <div>
                                                 For any matter relating to this tenancy, the Tenant may be contacted at the Property or through the phone number below:
                                                 <ol start="1" style="margin-left:9.0pt;margin-top:1.0pt;list-style:lower-alpha inside;">
                                                     <li style="margin-bottom:6.0pt;" value="1">
                                                         <div style="margin-top:-17.0pt;padding-left:20.0pt;">
-                                                            Name: _________________________
+                                                            Name: {{_val(tenants[0])}}
                                                         </div>
                                                     </li>
                                                     <li style="margin-bottom:0.0pt;" value="2">
                                                         <div style="margin-top:-17.0pt;padding-left:20.0pt;">
-                                                            Phone: &nbsp;_________________________
+                                                            Phone: {{_val(tenant_phone)}}
                                                         </div>
                                                     </li>
                                                 </ol>
@@ -2332,12 +2410,12 @@
                                                 <ol start="1" style="margin-left:9.0pt;margin-top:1.0pt;list-style:lower-alpha inside;">
                                                     <li style="margin-bottom:6.0pt;" value="1">
                                                         <div style="margin-top:-17.0pt;padding-left:20.0pt;">
-                                                            Name: _________________________
+                                                            Name: {{_val(landlords[0].name)}}
                                                         </div>
                                                     </li>
                                                     <li style="margin-bottom:6.0pt;" value="2">
                                                         <div style="margin-top:-17.0pt;padding-left:20.0pt;">
-                                                            Address: __________
+                                                            Address: {{_val(property_address)}}
                                                             <p style="text-align:Left;">
                                                                 The contact information for the Landlord is:
                                                             </p>
@@ -2345,15 +2423,13 @@
                                                     </li>
                                                     <li style="margin-bottom:0.0pt;" value="3">
                                                         <div style="margin-top:-17.0pt;padding-left:20.0pt;">
-                                                            Phone: &nbsp;_________________________
+                                                            Phone: {{_val(landlord_phone)}}
                                                         </div>
                                                     </li>
                                                 </ol>
                                             </div>
                                         </li>
-                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
-                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">General Provisions</span>
-                                        </li>
+                                        <h4>General Provisions</h4>
                                         <li style="margin-bottom:6.0pt;" value="35">
                                             <div>
                                                 All monetary amounts stated or referred to in this Lease are based in the United States dollar.
@@ -2430,7 +2506,7 @@
                                                         <td style="text-align:Right;vertical-align:Bottom;padding:16.0pt;width:50%;">&nbsp;
                                                         </td>
                                                         <td style="text-align:Left;vertical-align:Bottom;padding:16.0pt;width:50%;">
-                                                            <p style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;text-align:Left;">_______________________________<br>______________________(Landlord)<br>
+                                                            <p style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;text-align:Left;">_______________________________<br>{{_val(landlords[0].name)}}(Landlord)<br>
                                                             </p>
                                                         </td>
                                                     </tr>
@@ -2438,7 +2514,7 @@
                                                         <td style="text-align:Right;vertical-align:Bottom;padding:16.0pt;width:50%;">&nbsp;
                                                         </td>
                                                         <td style="text-align:Left;vertical-align:Bottom;padding:16.0pt;width:50%;">
-                                                            <p style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;text-align:Left;">_______________________________<br>______________________(Tenant)<br>
+                                                            <p style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;text-align:Left;">_______________________________<br>{{_val(tenants[0])}}(Tenant)<br>
                                                             </p>
                                                         </td>
                                                     </tr>
@@ -2465,7 +2541,7 @@
                                                             <p style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;text-align:Left;">
                                                                 _______________________________
                                                                 <br>
-                                                                ______________________(Tenant)
+                                                                {{_val(tenants[0])}}(Tenant)
                                                                 <br>
                                                             </p>
                                                         </td>
@@ -2482,9 +2558,9 @@
                                         </p>
                                         <p> Properties Subject to Civil Code Section 1946.2 and 1947.12 </p>
                                         <p>
-                                            Property: __________<br>
-                                            Landlord: _________________________<br>
-                                            Tenant: _________________________
+                                            Property: {{_val(property_address)}}<br>
+                                            Landlord: {{_val(landlords[0].name)}}<br>
+                                            Tenant: {{_val(tenants[0])}}
                                         </p>
                                         <p>
                                             As required by Civil Code Section 1946.2 and 1947.12:
@@ -2512,7 +2588,7 @@
                                                     <td style="text-align:Left;vertical-align:Middle;padding:2.0pt;width:48.97959%;">
                                                         <span style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;">
                                                             _________________________________
-                                                            <br>Landlord: _________________________
+                                                            <br>Landlord: {{_val(landlords[0].name)}}
                                                             <br><br>
                                                         </span>
                                                     </td>
@@ -2539,7 +2615,7 @@
                                                     <td style="text-align:Left;vertical-align:Middle;padding:2.0pt;width:48.97959%;">
                                                         <span style="font-size:12.0pt;line-height:18.0pt;font-family:Times New Roman;color:#000000;">
                                                             _________________________________
-                                                            <br>Tenant: _________________________
+                                                            <br>Tenant: {{_val(tenants[0])}}
                                                             <br><br>
                                                         </span>
                                                     </td>
@@ -2563,8 +2639,8 @@
             el: "#app",
             data(){
                 return {
-                    step: 'general-property-type',
-                    // step: 'details-tenant-improvement',
+                    // step: 'general-property-type',
+                    step: 'terms-utilities-details',
 
                     property_type: 'house',
                     property_location: 'california',
@@ -2590,7 +2666,7 @@
                     landlord_phone: null,
                     landlord_email: null,
 
-                    tenant_name: null,
+                    tenants: [''],
                     tenant_phone: null,
                     tenant_email: null,
 
@@ -2700,6 +2776,10 @@
             methods: {
                 remove_landlord(idx){
                     this.landlords.splice(idx, 1)
+                    this.renderKey++
+                },
+                remove_tenant(idx){
+                    this.tenants.splice(idx, 1)
                     this.renderKey++
                 }
             }
