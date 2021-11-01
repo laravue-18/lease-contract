@@ -1148,135 +1148,23 @@
                             <tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Electricity</td>
-                                <template v-if = "utilities_cost_responsible == 'rent'">
-                                    <td><input type="radio" value="included" v-model="utilities_rent_electricity"></td>
-                                    <td><input type="radio" value="not-included" v-model="utilities_rent_electricity"></td>
-                                </template>
-                                <template v-else-if = "utilities_cost_responsible == 'shared'">
-                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_electricity"></td>
-                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_electricity"></td>
-                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_electricity"></td>
-                                </template>
-                            </tr>
-                            <tr>
-                                <td>Water/Sewer</td>
-                                <template v-if = "utilities_cost_responsible == 'rent'">
-                                    <td><input type="radio" value="included" v-model="utilities_rent_water"></td>
-                                    <td><input type="radio" value="not-included" v-model="utilities_rent_water"></td>
-                                </template>
-                                <template v-else-if = "utilities_cost_responsible == 'shared'">
-                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_water"></td>
-                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_water"></td>
-                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_water"></td>
-                                </template>
-                            </tr>
-                            <tr>
-                                <td>Internet</td>
-                                <template v-if = "utilities_cost_responsible == 'rent'">
-                                    <td><input type="radio" value="included" v-model="utilities_rent_internet"></td>
-                                    <td><input type="radio" value="not-included" v-model="utilities_rent_internet"></td>
-                                </template>
-                                <template v-else-if = "utilities_cost_responsible == 'shared'">
-                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_internet"></td>
-                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_internet"></td>
-                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_internet"></td>
-                                </template>
-                            </tr>
-                            <tr>
-                                <td>Cable</td>
-                                <template v-if = "utilities_cost_responsible == 'rent'">
-                                    <td><input type="radio" value="included" v-model="utilities_rent_cable"></td>
-                                    <td><input type="radio" value="not-included" v-model="utilities_rent_cable"></td>
-                                </template>
-                                <template v-else-if = "utilities_cost_responsible == 'shared'">
-                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_cable"></td>
-                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_cable"></td>
-                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_cable"></td>
-                                </template>
-                            </tr>
-                            <tr>
-                                <td>Telephone</td>
-                                <template v-if = "utilities_cost_responsible == 'rent'">
-                                    <td><input type="radio" value="included" v-model="utilities_rent_telephone"></td>
-                                    <td><input type="radio" value="not-included" v-model="utilities_rent_telephone"></td>
-                                </template>
-                                <template v-else-if = "utilities_cost_responsible == 'shared'">
-                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_telephone"></td>
-                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_telephone"></td>
-                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_telephone"></td>
-                                </template>
-                            </tr>
-                            <tr>
-                                <td>Natural Gas</td>
-                                <template v-if = "utilities_cost_responsible == 'rent'">
-                                    <td><input type="radio" value="included" v-model="utilities_rent_gas"></td>
-                                    <td><input type="radio" value="not-included" v-model="utilities_rent_gas"></td>
-                                </template>
-                                <template v-else-if = "utilities_cost_responsible == 'shared'">
-                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_gas"></td>
-                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_gas"></td>
-                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_gas"></td>
-                                </template>
-                            </tr>
-                            <tr>
-                                <td>Heating Oil/Propane</td>
-                                <template v-if = "utilities_cost_responsible == 'rent'">
-                                    <td><input type="radio" value="included" v-model="utilities_rent_oil"></td>
-                                    <td><input type="radio" value="not-included" v-model="utilities_rent_oil"></td>
-                                </template>
-                                <template v-else-if = "utilities_cost_responsible == 'shared'">
-                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_oil"></td>
-                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_oil"></td>
-                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_oil"></td>
-                                </template>
-                            </tr>
-                            <tr>
-                                <td>Garbage Collection</td>
-                                <template v-if = "utilities_cost_responsible == 'rent'">
-                                    <td><input type="radio" value="included" v-model="utilities_rent_garbage"></td>
-                                    <td><input type="radio" value="not-included" v-model="utilities_rent_garbage"></td>
-                                </template>
-                                <template v-else-if = "utilities_cost_responsible == 'shared'">
-                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_garbage"></td>
-                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_garbage"></td>
-                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_garbage"></td>
-                                </template>
-                            </tr>
-                            <tr>
-                                <td>Alarm/Security System</td>
-                                <template v-if = "utilities_cost_responsible == 'rent'">
-                                    <td><input type="radio" value="included" v-model="utilities_rent_alarm"></td>
-                                    <td><input type="radio" value="not-included" v-model="utilities_rent_alarm"></td>
-                                </template>
-                                <template v-else-if = "utilities_cost_responsible == 'shared'">
-                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_alarm"></td>
-                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_alarm"></td>
-                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_alarm"></td>
-                                </template>
-                            </tr>
-                            <tr>
-                                <td>Other Expenses</td>
-                                <template v-if = "utilities_cost_responsible == 'rent'">
-                                    <td><input type="radio" value="included" v-model="utilities_rent_other"></td>
-                                    <td><input type="radio" value="not-included" v-model="utilities_rent_other"></td>
-                                </template>
-                                <template v-else-if = "utilities_cost_responsible == 'shared'">
-                                    <td><input type="radio" value="tenant-pays" v-model="utilities_shared_other"></td>
-                                    <td><input type="radio" value="landlord-pays" v-model="utilities_shared_other"></td>
-                                    <td><input type="radio" value="not-specify" v-model="utilities_shared_other"></td>
-                                </template>
-                            </tr>
+                            <template v-for = "i in utilities">
+                                <tr>
+                                    <td>{{ i[0] }}</td>
+                                    <td v-if="utilities_cost_responsible == 'shared'"><input type="radio" value="-1" v-model="i[1]"></td>
+                                    <td><input type="radio" value="1" v-model="i[1]"></td>
+                                    <td><input type="radio" value="0" v-model="i[1]"></td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
 
-                    <template v-if = "utilities_cost_responsible == 'rent' && utilities_rent_other != 'not-included' || (utilities_cost_responsible == 'shared' && utilities_shared_other != 'not-specify')">
+                    <!-- <template v-if = "utilities_cost_responsible == 'rent' && utilities_rent_other != 'not-included' || (utilities_cost_responsible == 'shared' && utilities_shared_other != 'not-specify')">
                         <h4 class="mb-4">Specify the other Utilities</h4>
                         <div class="mb-4">
                             <input type="text" class="theme-control" v-model="utilities_other">
                         </div>
-                    </template>
+                    </template> -->
                 </template>
 
                 <div class="mt-5">
@@ -2207,7 +2095,7 @@
                                                 </ol>
                                             </div>
                                         </li>
-                                        <!-- Utilities and Other Charges -->
+
                                         <h4> Utilities and Other Charges </h4>
                                         <template v-if = "utilities_cost_responsible == 'tenant'">
                                             <li>
@@ -2220,15 +2108,9 @@
                                             <li>
                                                 <div>
                                                     The Landlord is responsible for the payment of the following utilities and other charges in relation to the Property: 
-                                                    {{ utilities_rent_electricity == 'landlord-pays' ? 'electricity' : ''}}
-                                                    {{ utilities_rent_water == 'landlord-pays' ? ', water/sewer' : ''}}
-                                                    {{ utilities_rent_internet == 'landlord-pays' ? ', internet' : ''}}
-                                                    {{ utilities_rent_cable == 'landlord-pays' ? ', cable' : ''}}
-                                                    {{ utilities_rent_telephone == 'landlord-pays' ? ', telephone' : ''}}
-                                                    {{ utilities_rent_gas == 'landlord-pays' ? ', gas' : ''}}
-                                                    {{ utilities_rent_oil == 'landlord-pays' ? ', oil' : ''}}
-                                                    {{ utilities_rent_garbage == 'landlord-pays' ? ', garbage' : ''}}
-                                                    {{ utilities_rent_alarm == 'landlord-pays' ? ', alarm' : ''}}
+                                                    <template v-for = "(i, idx) in landlord_utilities()">
+                                                        {{ i }} {{idx < landlord_utilities().length - 2 ? ', ' : ''}} {{idx == landlord_utilities().length - 2 ? ' and ' : ''}} 
+                                                    </template>
                                                     .
                                                 </div>
                                             </li>
@@ -2237,50 +2119,37 @@
                                             <li>
                                                 <div>
                                                     The Landlord is responsible for the payment of the following utilities and other charges in relation to the Property: 
-                                                    {{ utilities_rent_electricity == 'included' ? 'electricity' : ''}}
-                                                    {{ utilities_rent_water == 'included' ? ', water/sewer' : ''}}
-                                                    {{ utilities_rent_internet == 'included' ? ', internet' : ''}}
-                                                    {{ utilities_rent_cable == 'included' ? ', cable' : ''}}
-                                                    {{ utilities_rent_telephone == 'included' ? ', telephone' : ''}}
-                                                    {{ utilities_rent_gas == 'included' ? ', gas' : ''}}
-                                                    {{ utilities_rent_oil == 'included' ? ', oil' : ''}}
-                                                    {{ utilities_rent_garbage == 'included' ? ', garbage' : ''}}
-                                                    {{ utilities_rent_alarm == 'included' ? ', alarm' : ''}}
+                                                    <template v-for = "(i, idx) in landlord_utilities()">
+                                                        {{ i }} {{idx < landlord_utilities().length - 2 ? ', ' : ''}} {{idx == landlord_utilities().length - 2 ? ' and ' : ''}} 
+                                                    </template>
                                                     .
                                                 </div>
                                             </li>
                                             <li>
                                                 <div>
                                                     The Tenant is responsible for the payment of the following utilities and other charges in relation to the Property:
-                                                    {{ utilities_rent_electricity == 'tenant-pays' ? 'electricity' : ''}}
-                                                    {{ utilities_rent_water == 'tenant-pays' ? ', water/sewer' : ''}}
-                                                    {{ utilities_rent_internet == 'tenant-pays' ? ', internet' : ''}}
-                                                    {{ utilities_rent_cable == 'tenant-pays' ? ', cable' : ''}}
-                                                    {{ utilities_rent_telephone == 'tenant-pays' ? ', telephone' : ''}}
-                                                    {{ utilities_rent_gas == 'tenant-pays' ? ', gas' : ''}}
-                                                    {{ utilities_rent_oil == 'tenant-pays' ? ', oil' : ''}}
-                                                    {{ utilities_rent_garbage == 'tenant-pays' ? ', garbage' : ''}}
-                                                    {{ utilities_rent_alarm == 'tenant-pays' ? ', alarm' : ''}}
+                                                    <template v-for = "(i, idx) in tenant_utilities()">
+                                                        {{ i }} {{idx < tenant_utilities().length - 2 ? ', ' : ''}} {{idx == tenant_utilities().length - 2 ? ' and ' : ''}} 
+                                                    </template>
                                                     .
                                                 </div>
                                             </li>
                                         </template>
 
                                         <h4>Insurance</h4>
-                                        <li style="margin-bottom:6.0pt;" value="15">
+                                        <li>
                                             <div>
                                                 The Tenant is hereby advised and understands that the personal property of the Tenant is not insured by the Landlord for either damage or loss, and the Landlord assumes no liability for any such loss.
                                             </div>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="16">
+                                        <li>
                                             <div>
                                                 The Tenant is not responsible for insuring the Landlord's contents and furnishings in or about the Property for either damage or loss, and the Tenant assumes no liability for any such loss.
                                             </div>
                                         </li>
-                                        <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
-                                            <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Attorney Fees</span>
-                                        </li>
-                                        <li style="margin-bottom:6.0pt;" value="17">
+
+                                        <h4>Attorney Fees</h4>
+                                        <li>
                                             <div>
                                                 In the event that any action is filed in relation to this Lease, the unsuccessful Party in the action will pay to the successful Party, in addition to all the sums that either Party may be called on to pay, a reasonable sum for the successful Party's attorney fees.
                                             </div>
@@ -2288,7 +2157,7 @@
                                         <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
                                             <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Governing Law</span>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="18">
+                                        <li>
                                             <div>
                                                 This Lease will be construed in accordance with and exclusively governed by the laws of the State of California.
                                             </div>
@@ -2296,19 +2165,19 @@
                                         <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
                                             <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Severability</span>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="19">
+                                        <li>
                                             <div>
                                                 If there is a conflict between any provision of this Lease and the Act, the Act will prevail and such provisions of the Lease will be amended or deleted as necessary in order to comply with the Act. Further, any provisions that are required by the Act are incorporated into this Lease.
                                             </div>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="20">
+                                        <li>
                                             <div>
                                                 The invalidity or unenforceability of any provisions of this Lease will not affect the validity or enforceability of any other provision of this Lease. &nbsp;Such other provisions remain in full force and effect.
                                             </div>
                                         </li>
 
                                         <h4>Amendment of Lease</h4>
-                                        <li style="margin-bottom:6.0pt;" value="21">
+                                        <li>
                                             <div>
                                                 This Lease may only be amended or modified by a written document executed by the Parties.
                                             </div>
@@ -2316,7 +2185,7 @@
                                         <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
                                             <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Assignment and Subletting</span>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="22">
+                                        <li>
                                             <div>
                                                 Without the prior, express, and written consent of the Landlord, the Tenant will not assign this Lease, or sublet or grant any concession or license to use the Property or any part of the Property. A consent by the Landlord to one assignment, subletting, concession, or license will not be deemed to be a consent to any subsequent assignment, subletting, concession, or license. Any assignment, subletting, concession, or license without the prior written consent of the Landlord, or an assignment or subletting by operation of law, will be void and will, at the Landlord's option, terminate this Lease. 
                                             </div>
@@ -2324,7 +2193,7 @@
                                         <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
                                             <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Damage to Property</span>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="23">
+                                        <li>
                                             <div>
                                                 If the Property should be damaged other than by the Tenant's negligence or willful act or that of the Tenant's employee, family, agent, or visitor and the Landlord decides not to rebuild or repair the Property, the Landlord may end this Lease by giving appropriate notice.
                                             </div>
@@ -2332,37 +2201,37 @@
                                         <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
                                             <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Care and Use of Property</span>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="24">
+                                        <li>
                                             <div>
                                                 The Tenant will promptly notify the Landlord of any damage, or of any situation that may significantly interfere with the normal use of the Property or to any furnishings supplied by the Landlord.
                                             </div>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="25">
+                                        <li>
                                             <div>
                                                 The Tenant will not engage in any illegal trade or activity on or about the Property.
                                             </div>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="26">
+                                        <li>
                                             <div>
                                                 The Parties will comply with standards of health, sanitation, fire, housing and safety as required by law.
                                             </div>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="27">
+                                        <li>
                                             <div>
                                                 The Parties will use reasonable efforts to maintain the Property in such a condition as to prevent the accumulation of moisture and the growth of mold. The Tenant will promptly notify the Landlord in writing of any moisture accumulation that occurs or of any visible evidence of mold discovered by the Tenant. The Landlord will promptly respond to any such written notices from the Tenant.
                                             </div>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="28">
+                                        <li>
                                             <div>
                                                 If the Tenant is absent from the Property and the Property is unoccupied for a period of 4 consecutive days or longer, the Tenant will arrange for regular inspection by a competent person. The Landlord will be notified in advance as to the name, address and phone number of the person doing the inspections.
                                             </div>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="29">
+                                        <li>
                                             <div>
                                                 At the expiration of the term of this Lease, the Tenant will quit and surrender the Property in as good a state and condition as they were at the commencement of this Lease, reasonable use and wear and tear excepted.
                                             </div>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="30">
+                                        <li>
                                             <div>
                                                 If the Tenant suspects that there are bed bugs on the Property, the Tenant will immediately inform the Landlord.
                                             </div>
@@ -2370,7 +2239,7 @@
                                         <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
                                             <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Rules and Regulations</span>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="31">
+                                        <li>
                                             <div>
                                                 The Tenant will obey all rules and regulations of the Landlord regarding the Property.
                                             </div>
@@ -2378,14 +2247,14 @@
                                         <li class="lhl" style="line-height:18.0pt;text-align:Left;margin-top:15.0pt;margin-bottom:6.0pt;list-style:none;">
                                             <span style="font-size:14.0pt;line-height:21.0pt;font-family:Helvetica;">Megan's Law</span>
                                         </li>
-                                        <li style="margin-bottom:6.0pt;" value="32">
+                                        <li>
                                             <div>
                                                 NOTICE: Pursuant to Section 290.46 of the Penal Code, information about specified registered sex offenders is made available to the public via an Internet website maintained by the Department of Justice at www.meganslaw.ca.gov. Depending on the offender’s criminal history, this information will include either the address at which the offender resides or the community of residence and ZIP Code in which he or she resides.
                                             </div>
                                         </li>
 
                                         <h4>Address for Notice</h4>
-                                        <li style="margin-bottom:6.0pt;" value="33">
+                                        <li>
                                             <div>
                                                 For any matter relating to this tenancy, the Tenant may be contacted at the Property or through the phone number below:
                                                 <ol start="1" style="margin-left:9.0pt;margin-top:1.0pt;list-style:lower-alpha inside;">
@@ -2710,29 +2579,20 @@
                     security_deposit_bank_address: null,
                     security_deposit_days: false,
                     security_deposit_days_value: null,
-
+                    
                     utilities_cost_responsible: 'tenant',
-                    utilities_rent_electricity: 'not-included',
-                    utilities_shared_electricity: 'not-specify',
-                    utilities_rent_water: 'not-included',
-                    utilities_shared_water: 'not-specify',
-                    utilities_rent_internet: 'not-included',
-                    utilities_shared_internet: 'not-specify',
-                    utilities_rent_cable: 'not-included',
-                    utilities_shared_cable: 'not-specify',
-                    utilities_rent_telephone: 'not-included',
-                    utilities_shared_telephone: 'not-specify',
-                    utilities_rent_gas: 'not-included',
-                    utilities_shared_gas: 'not-specify',
-                    utilities_rent_oil: 'not-included',
-                    utilities_shared_oil: 'not-specify',
-                    utilities_rent_garbage: 'not-included',
-                    utilities_shared_garbage: 'not-specify',
-                    utilities_rent_alarm: 'not-included',
-                    utilities_shared_alarm: 'not-specify',
-                    utilities_rent_other: 'not-included',
-                    utilities_shared_other: 'not-specify',
-                    utilities_other: '',
+
+                    utilities: [
+                        ['Electricity', 0],  // 0 - not sepcify, 1 - Landlord, -1 - Tenant
+                        ['Water/Sewer', 0],
+                        ['Internet', 0],
+                        ['Cable', 0],
+                        ['Telephone', 0],
+                        ['Natural Gas', 0],
+                        ['Heating Oil/Propane', 0],
+                        ['Garbage Collection', 0],
+                        ['Alarm/Security System', 0],
+                    ],
 
                     terms_maintenance: false,
                     maintenance_responsibilities: [],
@@ -2779,7 +2639,15 @@
                 remove_tenant(idx){
                     this.tenants.splice(idx, 1)
                     this.renderKey++
-                }
+                },
+                tenant_utilities(){
+                    return this.utilities.filter( i => i[1] == -1)
+                                        .map( i => i[0])
+                },
+                landlord_utilities(){
+                    return this.utilities.filter( i => i[1] == 1)
+                                        .map( i => i[0])
+                },
             }
         });
     
